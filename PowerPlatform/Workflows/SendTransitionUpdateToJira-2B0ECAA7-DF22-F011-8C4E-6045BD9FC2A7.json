@@ -1,0 +1,74 @@
+{
+  "properties": {
+    "connectionReferences": {},
+    "definition": {
+      "$schema": "https://schema.management.azure.com/providers/Microsoft.Logic/schemas/2016-06-01/workflowdefinition.json#",
+      "contentVersion": "1.0.0.0",
+      "parameters": {
+        "$authentication": {
+          "defaultValue": {},
+          "type": "SecureObject"
+        }
+      },
+      "triggers": {
+        "manual": {
+          "metadata": {
+            "operationMetadataId": "2127880d-cc18-4a0c-8908-01aa3d19fae8"
+          },
+          "type": "Request",
+          "kind": "PowerAppV2",
+          "inputs": {
+            "schema": {
+              "type": "object",
+              "properties": {
+                "text": {
+                  "title": "IssueID",
+                  "type": "string",
+                  "x-ms-dynamically-added": true,
+                  "description": "Id of the incident",
+                  "x-ms-content-hint": "TEXT"
+                },
+                "text_1": {
+                  "title": "TransitionID",
+                  "type": "string",
+                  "x-ms-dynamically-added": true,
+                  "description": "Id of the transiton",
+                  "x-ms-content-hint": "TEXT"
+                }
+              },
+              "required": [
+                "text",
+                "text_1"
+              ]
+            }
+          }
+        }
+      },
+      "actions": {
+        "HTTP": {
+          "runAfter": {},
+          "metadata": {
+            "operationMetadataId": "ba15833d-78bc-404b-a92c-c2ce529e129f"
+          },
+          "type": "Http",
+          "inputs": {
+            "method": "POST",
+            "uri": "https://szkercza-1.atlassian.net/rest/api/3/issue/@{triggerBody()['text']}/transitions",
+            "body": {
+              "transition": {
+                "id": "@{triggerBody()['text_1']}"
+              }
+            },
+            "authentication": {
+              "type": "Basic",
+              "username": "szkercza@gmail.com",
+              "password": "*****"
+            }
+          }
+        }
+      }
+    },
+    "templateName": null
+  },
+  "schemaVersion": "1.0.0.0"
+}

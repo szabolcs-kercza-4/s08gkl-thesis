@@ -1,0 +1,652 @@
+{
+	"info": {
+		"_postman_id": "a22c9f46-43e0-40de-9abb-b1764dc0735a",
+		"name": "Thesis",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "25277003"
+	},
+	"item": [
+		{
+			"name": "Atlassian Request",
+			"item": [
+				{
+					"name": "Administration",
+					"item": [
+						{
+							"name": "Check Auth",
+							"request": {
+								"auth": {
+									"type": "basic",
+									"basic": [
+										{
+											"key": "username",
+											"value": "{{JIRA_USER}}",
+											"type": "string"
+										},
+										{
+											"key": "password",
+											"value": "{{JIRA_API}}",
+											"type": "string"
+										}
+									]
+								},
+								"method": "GET",
+								"header": [
+									{
+										"key": "Authorization",
+										"value": "Basic QVRBVFQzeEZmR0YwaGV1WnFXS1g0eXN2akIwYjhtbHc3cHBoVktqQ3BEb0tDVTNkZTZoVHNPNkNicmVtNmF3SmJuaXlJT3V1MzJaY3NEUVNudV9iX0NvRlpEQThpT2tRN0VoZVY3YmFtc1N5cTdWSElZNjhjVzkxN2NmaWxJcEVQejItZUhYQldpSW9tbExzRnRfcEg3ck1MVGc4T0xvYmlrSTR6WjVxbnR6QmItWTRwZXJvelRVPTU5MDE3RDVB",
+										"type": "text",
+										"disabled": true
+									}
+								],
+								"url": {
+									"raw": "https://szkercza-1.atlassian.net/rest/api/3/myself",
+									"protocol": "https",
+									"host": [
+										"szkercza-1",
+										"atlassian",
+										"net"
+									],
+									"path": [
+										"rest",
+										"api",
+										"3",
+										"myself"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Get Cloud ID",
+							"request": {
+								"auth": {
+									"type": "basic",
+									"basic": [
+										{
+											"key": "username",
+											"value": "{{JIRA_USER}}",
+											"type": "string"
+										},
+										{
+											"key": "password",
+											"value": "{{JIRA_API}}",
+											"type": "string"
+										}
+									]
+								},
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "https://szkercza-1.atlassian.net/_edge/tenant_info",
+									"protocol": "https",
+									"host": [
+										"szkercza-1",
+										"atlassian",
+										"net"
+									],
+									"path": [
+										"_edge",
+										"tenant_info"
+									]
+								}
+							},
+							"response": []
+						}
+					],
+					"description": "Alap admisztratív kérések.\n\n- Check Auth: validálja, hogy jó-e az API Tokenünk\n    \n- Get Cloud ID: lekéri a Cloud IF-t (felhő azonosítót)"
+				},
+				{
+					"name": "Get from Jira",
+					"item": [
+						{
+							"name": "List Issues",
+							"request": {
+								"auth": {
+									"type": "basic",
+									"basic": [
+										{
+											"key": "username",
+											"value": "{{JIRA_USER}}",
+											"type": "string"
+										},
+										{
+											"key": "password",
+											"value": "{{JIRA_API}}",
+											"type": "string"
+										}
+									]
+								},
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "https://szkercza-1.atlassian.net/rest/api/3/search?jql=project=SUP",
+									"protocol": "https",
+									"host": [
+										"szkercza-1",
+										"atlassian",
+										"net"
+									],
+									"path": [
+										"rest",
+										"api",
+										"3",
+										"search"
+									],
+									"query": [
+										{
+											"key": "jql",
+											"value": "project=SUP"
+										}
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Get Specific Issue",
+							"request": {
+								"auth": {
+									"type": "basic",
+									"basic": [
+										{
+											"key": "username",
+											"value": "{{JIRA_USER}}",
+											"type": "string"
+										},
+										{
+											"key": "password",
+											"value": "{{JIRA_API}}",
+											"type": "string"
+										}
+									]
+								},
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "https://api.atlassian.com/ex/jira/{{JIRA_CLOUD_ID}}/rest/servicedeskapi/request/SUP-01",
+									"protocol": "https",
+									"host": [
+										"api",
+										"atlassian",
+										"com"
+									],
+									"path": [
+										"ex",
+										"jira",
+										"{{JIRA_CLOUD_ID}}",
+										"rest",
+										"servicedeskapi",
+										"request",
+										"SUP-01"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Get Issue Details",
+							"request": {
+								"auth": {
+									"type": "basic",
+									"basic": [
+										{
+											"key": "password",
+											"value": "{{JIRA_API}}",
+											"type": "string"
+										},
+										{
+											"key": "username",
+											"value": "{{JIRA_USER}}",
+											"type": "string"
+										}
+									]
+								},
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "https://{{JIRA_SUBDOMAIN}}.atlassian.net/rest/api/3/issue/SUP-13",
+									"protocol": "https",
+									"host": [
+										"{{JIRA_SUBDOMAIN}}",
+										"atlassian",
+										"net"
+									],
+									"path": [
+										"rest",
+										"api",
+										"3",
+										"issue",
+										"SUP-13"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "JQL for System Incidents",
+							"request": {
+								"auth": {
+									"type": "basic",
+									"basic": [
+										{
+											"key": "password",
+											"value": "{{JIRA_API}}",
+											"type": "string"
+										},
+										{
+											"key": "username",
+											"value": "{{JIRA_USER}}",
+											"type": "string"
+										}
+									]
+								},
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "https://szkercza-1.atlassian.net/rest/api/3/search?jql=project = 'SUP' AND issuetype = \"[System] Incident\" AND status != Closed order by created DESC",
+									"protocol": "https",
+									"host": [
+										"szkercza-1",
+										"atlassian",
+										"net"
+									],
+									"path": [
+										"rest",
+										"api",
+										"3",
+										"search"
+									],
+									"query": [
+										{
+											"key": "jql",
+											"value": "project = 'SUP' AND issuetype = \"[System] Incident\" AND status != Closed order by created DESC"
+										}
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Get Services",
+							"request": {
+								"auth": {
+									"type": "basic",
+									"basic": [
+										{
+											"key": "password",
+											"value": "{{JIRA_API}}",
+											"type": "string"
+										},
+										{
+											"key": "username",
+											"value": "{{JIRA_USER}}",
+											"type": "string"
+										}
+									]
+								},
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "graphql",
+									"graphql": {
+										"query": "query listAssets($cloudId: String!) {\n    compass {\n        searchComponents(cloudId: $cloudId) {\n            ... on CompassSearchComponentConnection {\n                nodes {\n                    link\n                    component {\n                        id\n                        name\n                        description\n                        externalAliases {\n                            externalSource\n                            externalAliasId\n                            url\n                        }\n                    }\n                }\n            }\n        }\n    }\n}\n",
+										"variables": "{\n    \"cloudId\": \"{{JIRA_CLOUD_ID}}\"\n}"
+									}
+								},
+								"url": {
+									"raw": "https://{{JIRA_SUBDOMAIN}}.atlassian.net/gateway/api/graphql",
+									"protocol": "https",
+									"host": [
+										"{{JIRA_SUBDOMAIN}}",
+										"atlassian",
+										"net"
+									],
+									"path": [
+										"gateway",
+										"api",
+										"graphql"
+									]
+								}
+							},
+							"response": []
+						}
+					],
+					"description": "Adatbekérés Jira felől, melyek az Update Incident v2, Sync Applications, Sync Incidents Flowkban használtak\n\n- List Issues: listázza az összes incidenshez\n    \n- Get Specific Issue: részleteket szerez be egy incidensről\n    \n- Get Issue Details: részleteket szerez be egy incidensről (alternatív)\n    \n- JQL for System Incidents: JQL lekérdezés a ne mclosed állaputú incidensekről\n    \n- Get Services: GprahQL lekérdezés az Atlassian Compass szolgáltatásairól."
+				},
+				{
+					"name": "Sync to Jira",
+					"item": [
+						{
+							"name": "Get User Details",
+							"request": {
+								"auth": {
+									"type": "basic",
+									"basic": [
+										{
+											"key": "password",
+											"value": "{{JIRA_API}}",
+											"type": "string"
+										},
+										{
+											"key": "username",
+											"value": "{{JIRA_USER}}",
+											"type": "string"
+										}
+									]
+								},
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "https://{{JIRA_SUBDOMAIN}}.atlassian.net/rest/api/3/user/search?query=sz",
+									"protocol": "https",
+									"host": [
+										"{{JIRA_SUBDOMAIN}}",
+										"atlassian",
+										"net"
+									],
+									"path": [
+										"rest",
+										"api",
+										"3",
+										"user",
+										"search"
+									],
+									"query": [
+										{
+											"key": "query",
+											"value": "sz"
+										}
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "List Priorities",
+							"request": {
+								"auth": {
+									"type": "basic",
+									"basic": [
+										{
+											"key": "password",
+											"value": "{{JIRA_API}}",
+											"type": "string"
+										},
+										{
+											"key": "username",
+											"value": "{{JIRA_USER}}",
+											"type": "string"
+										}
+									]
+								},
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "https://{{JIRA_SUBDOMAIN}}.atlassian.net/rest/api/3/priority",
+									"protocol": "https",
+									"host": [
+										"{{JIRA_SUBDOMAIN}}",
+										"atlassian",
+										"net"
+									],
+									"path": [
+										"rest",
+										"api",
+										"3",
+										"priority"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Update INC",
+							"request": {
+								"auth": {
+									"type": "basic",
+									"basic": [
+										{
+											"key": "username",
+											"value": "{{JIRA_USER}}",
+											"type": "string"
+										},
+										{
+											"key": "password",
+											"value": "{{JIRA_API}}",
+											"type": "string"
+										}
+									]
+								},
+								"method": "PUT",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n  \"fields\": {\n    \"assignee\": {\n      \"id\": \"712020:93359693-7915-419a-aec8-d6a5f2eb9589\"\n    },\n    \"priority\": {\n      \"id\": \"1\"\n    },\n    \"summary\": \"Updated summary here\",\n    \"description\": {\n      \"type\": \"doc\",\n      \"version\": 1,\n      \"content\": [\n        {\n          \"type\": \"paragraph\",\n          \"content\": [\n            {\n              \"text\": \"Updated description here\",\n              \"type\": \"text\"\n            }\n          ]\n        }\n      ]\n    },\n    \"customfield_10045\": [\n        {\n            \"id\" : \"none\"\n        }\n    ]\n  }\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "https://{{JIRA_SUBDOMAIN}}.atlassian.net/rest/api/3/issue/SUP-23",
+									"protocol": "https",
+									"host": [
+										"{{JIRA_SUBDOMAIN}}",
+										"atlassian",
+										"net"
+									],
+									"path": [
+										"rest",
+										"api",
+										"3",
+										"issue",
+										"SUP-23"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Transition Issue",
+							"request": {
+								"auth": {
+									"type": "basic",
+									"basic": [
+										{
+											"key": "password",
+											"value": "{{JIRA_API}}",
+											"type": "string"
+										},
+										{
+											"key": "username",
+											"value": "{{JIRA_USER}}",
+											"type": "string"
+										}
+									]
+								},
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n  \"transition\": {\n    \"id\": \"31\"\n  }\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "https://{{JIRA_SUBDOMAIN}}.atlassian.net/rest/api/3/issue/SUP-25/transitions",
+									"protocol": "https",
+									"host": [
+										"{{JIRA_SUBDOMAIN}}",
+										"atlassian",
+										"net"
+									],
+									"path": [
+										"rest",
+										"api",
+										"3",
+										"issue",
+										"SUP-25",
+										"transitions"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Available Transitions",
+							"request": {
+								"auth": {
+									"type": "basic",
+									"basic": [
+										{
+											"key": "password",
+											"value": "{{JIRA_API}}",
+											"type": "string"
+										},
+										{
+											"key": "username",
+											"value": "{{JIRA_USER}}",
+											"type": "string"
+										}
+									]
+								},
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "https://{{JIRA_SUBDOMAIN}}.atlassian.net/rest/api/3/issue/SUP-25/transitions",
+									"protocol": "https",
+									"host": [
+										"{{JIRA_SUBDOMAIN}}",
+										"atlassian",
+										"net"
+									],
+									"path": [
+										"rest",
+										"api",
+										"3",
+										"issue",
+										"SUP-25",
+										"transitions"
+									]
+								}
+							},
+							"response": []
+						}
+					],
+					"description": "Jira Service Management felá irányuló kérések\n\n- Get User Details: keresés a Jira felhsználók között\n    \n- List Priorities: az adott incidenshez tartozó elérhető állapotváltozások lekérése\n    \n- Update INC: incidens frissítése\n    \n- Transition Issue: incidens állapotváltoztatása"
+				}
+			],
+			"description": "Kérések, amelyek Jira Service Management vagy az Atlassian Compass felé irányulnak."
+		},
+		{
+			"name": "Power Automate",
+			"item": [
+				{
+					"name": "Get Auth Token",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "grant_type",
+									"value": "client_credentials\n",
+									"type": "text"
+								},
+								{
+									"key": "client_id",
+									"value": "{{AZURE_CLIENT_ID}}",
+									"type": "text"
+								},
+								{
+									"key": "client_secret",
+									"value": "{{AZURE_CLIENT_SECRET}}",
+									"type": "text"
+								},
+								{
+									"key": "scope",
+									"value": "https://service.flow.microsoft.com//.default",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "https://login.microsoftonline.com/*****/oauth2/v2.0/token",
+							"protocol": "https",
+							"host": [
+								"login",
+								"microsoftonline",
+								"com"
+							],
+							"path": [
+								"*****",
+								"oauth2",
+								"v2.0",
+								"token"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Trigger Webhook",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "yourtokenhere",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"url": {
+							"raw": "https://prod-23.northeurope.logic.azure.com:443/workflows/4bcb6457e08948dc8710dc5712442311/triggers/manual/paths/invoke?api-version=2016-06-01",
+							"protocol": "https",
+							"host": [
+								"prod-23",
+								"northeurope",
+								"logic",
+								"azure",
+								"com"
+							],
+							"port": "443",
+							"path": [
+								"workflows",
+								"4bcb6457e08948dc8710dc5712442311",
+								"triggers",
+								"manual",
+								"paths",
+								"invoke"
+							],
+							"query": [
+								{
+									"key": "api-version",
+									"value": "2016-06-01"
+								}
+							]
+						}
+					},
+					"response": []
+				}
+			],
+			"description": "Power Automate és Azure felá irányuló kérések\n\n- Get Auth Token: beszerzi az Azure-ból az ideiglenes Auth tokent\n    \n- Trigger Webhook: meghívja a Power Automate egyik webhookját"
+		}
+	],
+	"variable": [
+		{
+			"key": "issue_id",
+			"value": "10003",
+			"type": "default"
+		}
+	]
+}

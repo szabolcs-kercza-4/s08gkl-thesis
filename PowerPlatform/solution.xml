@@ -1,0 +1,118 @@
+<ImportExportXml version="9.2.25041.236" SolutionPackageVersion="9.2" languagecode="1038" generatedBy="CrmLive" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" OrganizationVersion="9.2.25041.236" OrganizationSchemaType="Standard" CRMServerServiceabilityVersion="9.2.25041.00236">
+  <SolutionManifest>
+    <UniqueName>Crb9e6a</UniqueName>
+    <LocalizedNames>
+      <LocalizedName description="Kercza Szabolcs Queue App" languagecode="1038" />
+    </LocalizedNames>
+    <Descriptions />
+    <Version>1.0.0.2</Version>
+    <Managed>1</Managed>
+    <Publisher>
+      <UniqueName>Cr6968f</UniqueName>
+      <LocalizedNames>
+        <LocalizedName description="CDS Default Publisher" languagecode="1038" />
+      </LocalizedNames>
+      <Descriptions />
+      <EMailAddress xsi:nil="true"></EMailAddress>
+      <SupportingWebsiteUrl xsi:nil="true"></SupportingWebsiteUrl>
+      <CustomizationPrefix>crbc3</CustomizationPrefix>
+      <CustomizationOptionValuePrefix>21867</CustomizationOptionValuePrefix>
+      <Addresses>
+        <Address>
+          <AddressNumber>1</AddressNumber>
+          <AddressTypeCode xsi:nil="true"></AddressTypeCode>
+          <City xsi:nil="true"></City>
+          <County xsi:nil="true"></County>
+          <Country xsi:nil="true"></Country>
+          <Fax xsi:nil="true"></Fax>
+          <FreightTermsCode xsi:nil="true"></FreightTermsCode>
+          <ImportSequenceNumber xsi:nil="true"></ImportSequenceNumber>
+          <Latitude xsi:nil="true"></Latitude>
+          <Line1 xsi:nil="true"></Line1>
+          <Line2 xsi:nil="true"></Line2>
+          <Line3 xsi:nil="true"></Line3>
+          <Longitude xsi:nil="true"></Longitude>
+          <Name xsi:nil="true"></Name>
+          <PostalCode xsi:nil="true"></PostalCode>
+          <PostOfficeBox xsi:nil="true"></PostOfficeBox>
+          <PrimaryContactName xsi:nil="true"></PrimaryContactName>
+          <ShippingMethodCode xsi:nil="true"></ShippingMethodCode>
+          <StateOrProvince xsi:nil="true"></StateOrProvince>
+          <Telephone1 xsi:nil="true"></Telephone1>
+          <Telephone2 xsi:nil="true"></Telephone2>
+          <Telephone3 xsi:nil="true"></Telephone3>
+          <TimeZoneRuleVersionNumber xsi:nil="true"></TimeZoneRuleVersionNumber>
+          <UPSZone xsi:nil="true"></UPSZone>
+          <UTCOffset xsi:nil="true"></UTCOffset>
+          <UTCConversionTimeZoneCode xsi:nil="true"></UTCConversionTimeZoneCode>
+        </Address>
+        <Address>
+          <AddressNumber>2</AddressNumber>
+          <AddressTypeCode xsi:nil="true"></AddressTypeCode>
+          <City xsi:nil="true"></City>
+          <County xsi:nil="true"></County>
+          <Country xsi:nil="true"></Country>
+          <Fax xsi:nil="true"></Fax>
+          <FreightTermsCode xsi:nil="true"></FreightTermsCode>
+          <ImportSequenceNumber xsi:nil="true"></ImportSequenceNumber>
+          <Latitude xsi:nil="true"></Latitude>
+          <Line1 xsi:nil="true"></Line1>
+          <Line2 xsi:nil="true"></Line2>
+          <Line3 xsi:nil="true"></Line3>
+          <Longitude xsi:nil="true"></Longitude>
+          <Name xsi:nil="true"></Name>
+          <PostalCode xsi:nil="true"></PostalCode>
+          <PostOfficeBox xsi:nil="true"></PostOfficeBox>
+          <PrimaryContactName xsi:nil="true"></PrimaryContactName>
+          <ShippingMethodCode xsi:nil="true"></ShippingMethodCode>
+          <StateOrProvince xsi:nil="true"></StateOrProvince>
+          <Telephone1 xsi:nil="true"></Telephone1>
+          <Telephone2 xsi:nil="true"></Telephone2>
+          <Telephone3 xsi:nil="true"></Telephone3>
+          <TimeZoneRuleVersionNumber xsi:nil="true"></TimeZoneRuleVersionNumber>
+          <UPSZone xsi:nil="true"></UPSZone>
+          <UTCOffset xsi:nil="true"></UTCOffset>
+          <UTCConversionTimeZoneCode xsi:nil="true"></UTCConversionTimeZoneCode>
+        </Address>
+      </Addresses>
+    </Publisher>
+    <RootComponents>
+      <RootComponent type="1" schemaName="crbc3_incident" behavior="0" />
+      <RootComponent type="1" schemaName="crbc3_szk_agents" behavior="0" />
+      <RootComponent type="1" schemaName="crbc3_szk_applications" behavior="0" />
+      <RootComponent type="1" schemaName="crbc3_szk_incidentstates" behavior="0" />
+      <RootComponent type="1" schemaName="crbc3_szk_priorities" behavior="0" />
+      <RootComponent type="29" id="{2b0ecaa7-df22-f011-8c4e-6045bd9fc2a7}" behavior="0" />
+      <RootComponent type="29" id="{4aa1c5b1-be22-f011-8c4e-6045bd9fc2a7}" behavior="0" />
+      <RootComponent type="29" id="{4ffa33c2-c12e-ed11-9db1-0022482aea7b}" behavior="0" />
+      <RootComponent type="29" id="{87023c69-962c-ec11-b6e6-000d3a574957}" behavior="0" />
+      <RootComponent type="29" id="{ab83bb01-bf22-f011-8c4e-6045bd9fc2a7}" behavior="0" />
+      <RootComponent type="29" id="{cbe7b67c-f82b-f011-8c4e-6045bd9fc2a7}" behavior="0" />
+      <RootComponent type="29" id="{cce7b67c-f82b-f011-8c4e-6045bd9fc2a7}" behavior="0" />
+      <RootComponent type="29" id="{cde7b67c-f82b-f011-8c4e-6045bd9fc2a7}" behavior="0" />
+      <RootComponent type="29" id="{ee2079d2-a93f-48b5-887a-c54ad830cbe5}" behavior="0" />
+      <RootComponent type="300" schemaName="crbc3_defaultincidentview_917ae" behavior="0" />
+      <RootComponent type="300" schemaName="crbc3_queueapp_55a67" behavior="0" />
+    </RootComponents>
+    <MissingDependencies>
+      <MissingDependency>
+        <Required type="29" displayName="Integrált keresési API aktiválási folyamata" solution="msdynce_KnowledgeManagementOnlineExtension (9.0.25023.5002)" id="{4ffa33c2-c12e-ed11-9db1-0022482aea7b}">
+          <package appName="msdynce_KnowledgeManagement" version="9.0.25023.5002">msdynce_KnowledgeManagementAnchor (9.0.25023.5002)</package>
+        </Required>
+        <Dependent type="29" displayName="Integrált keresési API aktiválási folyamata" id="{4ffa33c2-c12e-ed11-9db1-0022482aea7b}" />
+      </MissingDependency>
+      <MissingDependency>
+        <Required type="29" displayName="Dynamics 365-tudásbáziscikkek keresési folyamata" solution="msdynce_KnowledgeManagementOnlineExtension (9.0.25023.5002)" id="{87023c69-962c-ec11-b6e6-000d3a574957}">
+          <package appName="msdynce_KnowledgeManagement" version="9.0.25023.5002">msdynce_KnowledgeManagementAnchor (9.0.25023.5002)</package>
+        </Required>
+        <Dependent type="29" displayName="Dynamics 365-tudásbáziscikkek keresési folyamata" id="{87023c69-962c-ec11-b6e6-000d3a574957}" />
+      </MissingDependency>
+      <MissingDependency>
+        <Required type="29" displayName="SLAInstanceMonitoringWarningAndExpiryFlow" solution="msdynce_ServiceLevelAgreementExtension (9.0.25033.2000)" id="{ee2079d2-a93f-48b5-887a-c54ad830cbe5}">
+          <package appName="msdynce_ServiceLevelAgreement" version="9.0.25033.2000">msdynce_ServiceLevelAgreementAnchor (9.0.25033.2000)</package>
+        </Required>
+        <Dependent type="29" displayName="SLAInstanceMonitoringWarningAndExpiryFlow" id="{ee2079d2-a93f-48b5-887a-c54ad830cbe5}" />
+      </MissingDependency>
+    </MissingDependencies>
+  </SolutionManifest>
+</ImportExportXml>

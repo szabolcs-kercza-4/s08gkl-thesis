@@ -1,0 +1,138 @@
+{
+    "cloud": true,
+    "rules": [
+        {
+            "id": 27140900,
+            "clientKey": "b8589e64-1bd3-3cee-86d2-e4c280700928",
+            "name": "Webhook to Power Automate when Incident updated",
+            "state": "ENABLED",
+            "description": "",
+            "authorAccountId": "631ae47456010c40d448ae94",
+            "actor": {
+                "type": "ACCOUNT_ID",
+                "value": "557058:f58131cb-b67d-43c7-b30d-6b58d40bd077"
+            },
+            "created": 1744059792948,
+            "updated": 1745679240394,
+            "trigger": {
+                "id": "704524202",
+                "component": "TRIGGER",
+                "parentId": null,
+                "conditionParentId": null,
+                "schemaVersion": 1,
+                "type": "jira.issue.event.trigger:updated",
+                "value": {
+                    "eventKey": "jira:issue_updated",
+                    "issueEvent": "issue_updated"
+                },
+                "children": [],
+                "conditions": [],
+                "connectionId": null
+            },
+            "components": [
+                {
+                    "id": "704526806",
+                    "component": "CONDITION",
+                    "parentId": null,
+                    "conditionParentId": null,
+                    "schemaVersion": 1,
+                    "type": "jira.comparator.condition",
+                    "value": {
+                        "first": "{{issue.issueType.name}}",
+                        "second": "[System] Incident",
+                        "operator": "EQUALS"
+                    },
+                    "children": [],
+                    "conditions": [],
+                    "connectionId": null
+                },
+                {
+                    "id": "704524203",
+                    "component": "ACTION",
+                    "parentId": null,
+                    "conditionParentId": null,
+                    "schemaVersion": 1,
+                    "type": "jira.issue.outgoing.webhook",
+                    "value": {
+                        "url": "https://login.microsoftonline.com/*****/oauth2/v2.0/token",
+                        "headers": [
+                            {
+                                "id": "_header_1744117404958",
+                                "name": "Content-Type",
+                                "value": "application/x-www-form-urlencoded",
+                                "headerSecure": false
+                            }
+                        ],
+                        "sendIssue": false,
+                        "contentType": "custom",
+                        "customBody": "grant_type=client_credentials&client_id=*****&client_secret=*****&scope=https://service.flow.microsoft.com//.default",
+                        "method": "POST",
+                        "responseEnabled": true,
+                        "continueOnErrorEnabled": false
+                    },
+                    "children": [],
+                    "conditions": [],
+                    "connectionId": null
+                },
+                {
+                    "id": "704524204",
+                    "component": "ACTION",
+                    "parentId": null,
+                    "conditionParentId": null,
+                    "schemaVersion": 1,
+                    "type": "jira.issue.outgoing.webhook",
+                    "value": {
+                        "url": "https://prod-25.northeurope.logic.azure.com:443/workflows/483b9507eb41465c99c742632de7523b/triggers/manual/paths/invoke?api-version=2016-06-01",
+                        "headers": [
+                            {
+                                "id": "_header_1744059403028",
+                                "name": "Authorization",
+                                "value": "Bearer {{webResponse.body.access_token}}",
+                                "headerSecure": false
+                            }
+                        ],
+                        "sendIssue": false,
+                        "contentType": "issueJiraFormat",
+                        "customBody": null,
+                        "method": "POST",
+                        "responseEnabled": false,
+                        "continueOnErrorEnabled": false
+                    },
+                    "children": [],
+                    "conditions": [],
+                    "connectionId": null
+                }
+            ],
+            "canOtherRuleTrigger": false,
+            "notifyOnError": "FIRSTERROR",
+            "projects": [],
+            "labels": [],
+            "tags": [
+                {
+                    "id": 107464370,
+                    "ruleIdUuid": "01961210-7e34-701d-976f-19a51e3a8cdc",
+                    "tagType": "IS_RULE_UPDATED",
+                    "tagValue": "true"
+                }
+            ],
+            "ruleScope": {
+                "resources": [
+                    "ari:cloud:jira:eef050d7-b417-496b-b8c4-26df32153d3c:project/10001"
+                ]
+            },
+            "ruleHome": {
+                "ruleLifecycleHome": {
+                    "locationARI": "ari:cloud:jira:eef050d7-b417-496b-b8c4-26df32153d3c:project/10001"
+                },
+                "ruleBillingHome": {
+                    "locationARI": "ari:cloud:jira-servicedesk::site/eef050d7-b417-496b-b8c4-26df32153d3c"
+                }
+            },
+            "writeAccessType": "UNRESTRICTED",
+            "collaborators": [],
+            "billingType": "NORMAL",
+            "idUuid": "01961210-7e34-701d-976f-19a51e3a8cdc",
+            "partitionId": "ff4145ea-14a9-49ed-a9c3-c8108a541ee8"
+        }
+    ]
+}

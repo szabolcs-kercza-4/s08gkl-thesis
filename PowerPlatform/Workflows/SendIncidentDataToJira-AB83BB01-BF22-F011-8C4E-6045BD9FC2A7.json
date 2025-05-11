@@ -1,0 +1,138 @@
+{
+  "properties": {
+    "connectionReferences": {},
+    "definition": {
+      "$schema": "https://schema.management.azure.com/providers/Microsoft.Logic/schemas/2016-06-01/workflowdefinition.json#",
+      "contentVersion": "1.0.0.0",
+      "parameters": {
+        "$authentication": {
+          "defaultValue": {},
+          "type": "SecureObject"
+        },
+        "$connections": {
+          "defaultValue": {},
+          "type": "Object"
+        }
+      },
+      "triggers": {
+        "manual": {
+          "type": "Request",
+          "kind": "PowerAppV2",
+          "inputs": {
+            "schema": {
+              "type": "object",
+              "properties": {
+                "text": {
+                  "description": "",
+                  "title": "ID",
+                  "type": "string",
+                  "x-ms-content-hint": "TEXT",
+                  "x-ms-dynamically-added": true
+                },
+                "text_1": {
+                  "description": "",
+                  "title": "AssigneeID",
+                  "type": "string",
+                  "x-ms-content-hint": "TEXT",
+                  "x-ms-dynamically-added": true
+                },
+                "text_3": {
+                  "description": "",
+                  "title": "Priority",
+                  "type": "string",
+                  "x-ms-content-hint": "TEXT",
+                  "x-ms-dynamically-added": true
+                },
+                "text_4": {
+                  "description": "",
+                  "title": "AffectedService",
+                  "type": "string",
+                  "x-ms-content-hint": "TEXT",
+                  "x-ms-dynamically-added": true
+                },
+                "text_5": {
+                  "description": "",
+                  "title": "Summary",
+                  "type": "string",
+                  "x-ms-content-hint": "TEXT",
+                  "x-ms-dynamically-added": true
+                },
+                "text_2": {
+                  "description": "",
+                  "title": "Description",
+                  "type": "string",
+                  "x-ms-content-hint": "TEXT",
+                  "x-ms-dynamically-added": true
+                }
+              },
+              "required": [
+                "text",
+                "text_1",
+                "text_3",
+                "text_4",
+                "text_5",
+                "text_2"
+              ]
+            }
+          },
+          "metadata": {
+            "operationMetadataId": "baa8557f-e26a-42a5-8f64-6ad0fa9b03e4"
+          }
+        }
+      },
+      "actions": {
+        "HTTP": {
+          "type": "Http",
+          "inputs": {
+            "uri": "https://szkercza-1.atlassian.net/rest/api/3/issue/@{triggerBody()?['text']}",
+            "method": "PUT",
+            "body": {
+              "fields": {
+                "assignee": {
+                  "id": "@{triggerBody()?['text_1']}"
+                },
+                "priority": {
+                  "id": "@{triggerBody()?['text_2']}"
+                },
+                "summary": "@{triggerBody()?['text_4']}",
+                "description": {
+                  "type": "doc",
+                  "version": 1,
+                  "content": [
+                    {
+                      "type": "paragraph",
+                      "content": [
+                        {
+                          "text": "@{triggerBody()?['text_5']}",
+                          "type": "text"
+                        }
+                      ]
+                    }
+                  ]
+                },
+                "customfield_10045": [
+                  {
+                    "id": "@{triggerBody()?['text_3']}"
+                  }
+                ]
+              }
+            },
+            "authentication": {
+              "type": "Basic",
+              "username": "szkercza@gmail.com",
+              "password": "*****"
+            }
+          },
+          "runAfter": {},
+          "runtimeConfiguration": {
+            "contentTransfer": {
+              "transferMode": "Chunked"
+            }
+          }
+        }
+      }
+    },
+    "templateName": null
+  },
+  "schemaVersion": "1.0.0.0"
+}

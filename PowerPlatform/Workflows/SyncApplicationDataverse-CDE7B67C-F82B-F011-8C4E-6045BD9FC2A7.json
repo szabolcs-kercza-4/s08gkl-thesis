@@ -1,0 +1,316 @@
+{
+  "properties": {
+    "connectionReferences": {
+      "shared_commondataserviceforapps": {
+        "impersonation": {},
+        "runtimeSource": "embedded",
+        "connection": {
+          "connectionReferenceLogicalName": "crbc3_sharedcommondataserviceforapps_5abba"
+        },
+        "api": {
+          "name": "shared_commondataserviceforapps"
+        }
+      }
+    },
+    "definition": {
+      "$schema": "https://schema.management.azure.com/providers/Microsoft.Logic/schemas/2016-06-01/workflowdefinition.json#",
+      "contentVersion": "1.0.0.0",
+      "parameters": {
+        "$authentication": {
+          "defaultValue": {},
+          "type": "SecureObject"
+        },
+        "$connections": {
+          "defaultValue": {},
+          "type": "Object"
+        }
+      },
+      "triggers": {
+        "manual": {
+          "type": "Request",
+          "kind": "Button",
+          "inputs": {
+            "schema": {
+              "type": "object",
+              "properties": {},
+              "required": []
+            }
+          }
+        }
+      },
+      "actions": {
+        "HTTP": {
+          "runAfter": {},
+          "type": "Http",
+          "inputs": {
+            "uri": "https://szkercza-1.atlassian.net/gateway/api/graphql",
+            "method": "POST",
+            "body": {
+              "query": "query listAssets($cloudId: String!) {\n    compass {\n        searchComponents(cloudId: $cloudId) {\n            ... on CompassSearchComponentConnection {\n                nodes {\n                    link\n                    component {\n                        id\n                        name\n                        description\n                        externalAliases {\n                            externalSource\n                            externalAliasId\n                            url\n                        }\n                    }\n                }\n            }\n        }\n    }\n}\n",
+              "variables": {
+                "cloudId": "eef050d7-b417-496b-b8c4-26df32153d3c"
+              }
+            },
+            "authentication": {
+              "type": "Basic",
+              "username": "szkercza@gmail.com",
+              "password": "*****"
+            }
+          },
+          "runtimeConfiguration": {
+            "contentTransfer": {
+              "transferMode": "Chunked"
+            }
+          }
+        },
+        "Parse_JSON": {
+          "runAfter": {
+            "Initialize_variable": [
+              "Succeeded"
+            ]
+          },
+          "type": "ParseJson",
+          "inputs": {
+            "content": "@body('HTTP')",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "data": {
+                  "type": "object",
+                  "properties": {
+                    "compass": {
+                      "type": "object",
+                      "properties": {
+                        "searchComponents": {
+                          "type": "object",
+                          "properties": {
+                            "nodes": {
+                              "type": "array",
+                              "items": {
+                                "type": "object",
+                                "properties": {
+                                  "link": {
+                                    "type": "string"
+                                  },
+                                  "component": {
+                                    "type": "object",
+                                    "properties": {
+                                      "id": {
+                                        "type": "string"
+                                      },
+                                      "name": {
+                                        "type": "string"
+                                      },
+                                      "description": {
+                                        "type": [
+                                          "string",
+                                          "null"
+                                        ]
+                                      },
+                                      "externalAliases": {
+                                        "type": "array",
+                                        "items": {
+                                          "type": "object",
+                                          "properties": {
+                                            "externalSource": {
+                                              "type": "string"
+                                            },
+                                            "externalAliasId": {
+                                              "type": "string"
+                                            },
+                                            "url": {
+                                              "type": "string"
+                                            }
+                                          },
+                                          "required": [
+                                            "externalSource",
+                                            "externalAliasId",
+                                            "url"
+                                          ]
+                                        }
+                                      }
+                                    }
+                                  }
+                                },
+                                "required": [
+                                  "link",
+                                  "component"
+                                ]
+                              }
+                            }
+                          }
+                        }
+                      }
+                    }
+                  }
+                },
+                "extensions": {
+                  "type": "object",
+                  "properties": {
+                    "gateway": {
+                      "type": "object",
+                      "properties": {
+                        "request_id": {
+                          "type": "string"
+                        },
+                        "crossRegion": {
+                          "type": "boolean"
+                        },
+                        "edgeCrossRegion": {
+                          "type": "boolean"
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          }
+        },
+        "Apply_to_each": {
+          "foreach": "@body('Parse_JSON')['data']['compass']['searchComponents']['nodes']",
+          "actions": {
+            "Append_to_array_variable": {
+              "type": "AppendToArrayVariable",
+              "inputs": {
+                "name": "Output",
+                "value": {
+                  "id": "@items('Apply_to_each')?['component']?['id']",
+                  "name": "@items('Apply_to_each')?['component']?['name']",
+                  "description": "@items('Apply_to_each')?['component']?['description']",
+                  "link": "@items('Apply_to_each')?['link']",
+                  "source": "@first(items('Apply_to_each')?['component']?['externalAliases'])?['externalSource']",
+                  "aliasId": "@first(items('Apply_to_each')?['component']?['externalAliases'])?['externalAliasId']",
+                  "url": "@first(items('Apply_to_each')?['component']?['externalAliases'])?['url']"
+                }
+              }
+            }
+          },
+          "runAfter": {
+            "Parse_JSON": [
+              "Succeeded"
+            ]
+          },
+          "type": "Foreach"
+        },
+        "Initialize_variable": {
+          "runAfter": {
+            "HTTP": [
+              "Succeeded"
+            ]
+          },
+          "type": "InitializeVariable",
+          "inputs": {
+            "variables": [
+              {
+                "name": "Output",
+                "type": "array"
+              }
+            ]
+          }
+        },
+        "Apply_to_each_1": {
+          "foreach": "@outputs('Compose')",
+          "actions": {
+            "List_rows": {
+              "type": "OpenApiConnection",
+              "inputs": {
+                "parameters": {
+                  "entityName": "crbc3_szk_applicationses",
+                  "$filter": "crbc3_ari eq '@{items('Apply_to_each_1')?['aliasId']}'"
+                },
+                "host": {
+                  "apiId": "/providers/Microsoft.PowerApps/apis/shared_commondataserviceforapps",
+                  "connectionName": "shared_commondataserviceforapps",
+                  "operationId": "ListRecords"
+                },
+                "authentication": "@parameters('$authentication')"
+              }
+            },
+            "Condition": {
+              "actions": {
+                "Apply_to_each_2": {
+                  "foreach": "@outputs('List_rows')?['body/value']",
+                  "actions": {
+                    "Update_a_row": {
+                      "type": "OpenApiConnection",
+                      "inputs": {
+                        "parameters": {
+                          "entityName": "crbc3_szk_applicationses",
+                          "recordId": "@items('Apply_to_each_2')?['crbc3_szk_applicationsid']",
+                          "item/crbc3_applicationname": "@items('Apply_to_each_1')?['name']",
+                          "item/crbc3_ari": "@items('Apply_to_each_1')?['aliasId']"
+                        },
+                        "host": {
+                          "apiId": "/providers/Microsoft.PowerApps/apis/shared_commondataserviceforapps",
+                          "connectionName": "shared_commondataserviceforapps",
+                          "operationId": "UpdateOnlyRecord"
+                        },
+                        "authentication": "@parameters('$authentication')"
+                      }
+                    }
+                  },
+                  "type": "Foreach"
+                }
+              },
+              "runAfter": {
+                "List_rows": [
+                  "Succeeded"
+                ]
+              },
+              "else": {
+                "actions": {
+                  "Add_a_new_row": {
+                    "type": "OpenApiConnection",
+                    "inputs": {
+                      "parameters": {
+                        "entityName": "crbc3_szk_applicationses",
+                        "item/crbc3_applicationname": "@items('Apply_to_each_1')?['name']",
+                        "item/crbc3_ari": "@items('Apply_to_each_1')?['aliasId']"
+                      },
+                      "host": {
+                        "apiId": "/providers/Microsoft.PowerApps/apis/shared_commondataserviceforapps",
+                        "connectionName": "shared_commondataserviceforapps",
+                        "operationId": "CreateRecord"
+                      },
+                      "authentication": "@parameters('$authentication')"
+                    }
+                  }
+                }
+              },
+              "expression": {
+                "and": [
+                  {
+                    "greater": [
+                      "@length(outputs('List_rows')?['body/value'])",
+                      0
+                    ]
+                  }
+                ]
+              },
+              "type": "If"
+            }
+          },
+          "runAfter": {
+            "Compose": [
+              "Succeeded"
+            ]
+          },
+          "type": "Foreach"
+        },
+        "Compose": {
+          "runAfter": {
+            "Apply_to_each": [
+              "Succeeded"
+            ]
+          },
+          "type": "Compose",
+          "inputs": "@variables('Output')"
+        }
+      },
+      "outputs": {}
+    },
+    "templateName": null
+  },
+  "schemaVersion": "1.0.0.0"
+}

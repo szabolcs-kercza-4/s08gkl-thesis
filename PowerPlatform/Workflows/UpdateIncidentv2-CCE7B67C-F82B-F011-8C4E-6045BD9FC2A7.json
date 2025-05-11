@@ -1,0 +1,1709 @@
+{
+  "properties": {
+    "connectionReferences": {
+      "shared_commondataserviceforapps": {
+        "impersonation": {},
+        "runtimeSource": "embedded",
+        "connection": {
+          "connectionReferenceLogicalName": "crbc3_sharedcommondataserviceforapps_5abba"
+        },
+        "api": {
+          "name": "shared_commondataserviceforapps"
+        }
+      }
+    },
+    "definition": {
+      "$schema": "https://schema.management.azure.com/providers/Microsoft.Logic/schemas/2016-06-01/workflowdefinition.json#",
+      "contentVersion": "1.0.0.0",
+      "parameters": {
+        "$authentication": {
+          "defaultValue": {},
+          "type": "SecureObject"
+        },
+        "$connections": {
+          "defaultValue": {},
+          "type": "Object"
+        }
+      },
+      "triggers": {
+        "manual": {
+          "metadata": {},
+          "type": "Request",
+          "kind": "Http",
+          "inputs": {
+            "schema": {
+              "type": "object",
+              "properties": {
+                "issue": {
+                  "type": "object",
+                  "properties": {
+                    "self": {
+                      "type": "string"
+                    },
+                    "id": {
+                      "type": "integer"
+                    },
+                    "key": {
+                      "type": "string"
+                    },
+                    "changelog": {
+                      "type": "object",
+                      "properties": {
+                        "startAt": {
+                          "type": "integer"
+                        },
+                        "maxResults": {
+                          "type": "integer"
+                        },
+                        "total": {
+                          "type": "integer"
+                        },
+                        "histories": {}
+                      }
+                    },
+                    "fields": {
+                      "type": "object",
+                      "properties": {
+                        "statuscategorychangedate": {
+                          "type": "string"
+                        },
+                        "issuetype": {
+                          "type": "object",
+                          "properties": {
+                            "namedValue": {
+                              "type": "string"
+                            },
+                            "self": {
+                              "type": "string"
+                            },
+                            "id": {
+                              "type": "integer"
+                            },
+                            "description": {
+                              "type": "string"
+                            },
+                            "iconUrl": {
+                              "type": "string"
+                            },
+                            "name": {
+                              "type": "string"
+                            },
+                            "untranslatedName": {},
+                            "subtask": {
+                              "type": "boolean"
+                            },
+                            "fields": {
+                              "type": "object",
+                              "properties": {}
+                            },
+                            "statuses": {
+                              "type": "array"
+                            },
+                            "hierarchyLevel": {
+                              "type": "integer"
+                            }
+                          }
+                        },
+                        "timespent": {},
+                        "customfield_10030": {},
+                        "project": {
+                          "type": "object",
+                          "properties": {
+                            "self": {
+                              "type": "string"
+                            },
+                            "id": {
+                              "type": "integer"
+                            },
+                            "key": {
+                              "type": "string"
+                            },
+                            "name": {
+                              "type": "string"
+                            },
+                            "description": {},
+                            "avatarUrls": {
+                              "type": "object",
+                              "properties": {
+                                "48x48": {
+                                  "type": "string"
+                                },
+                                "24x24": {
+                                  "type": "string"
+                                },
+                                "16x16": {
+                                  "type": "string"
+                                },
+                                "32x32": {
+                                  "type": "string"
+                                }
+                              }
+                            },
+                            "issuetypes": {},
+                            "projectCategory": {},
+                            "email": {},
+                            "lead": {},
+                            "components": {},
+                            "versions": {},
+                            "projectTypeKey": {
+                              "type": "string"
+                            },
+                            "simplified": {
+                              "type": "boolean"
+                            }
+                          }
+                        },
+                        "customfield_10031": {},
+                        "fixVersions": {
+                          "type": "array"
+                        },
+                        "customfield_10033": {},
+                        "statusCategory": {
+                          "type": "object",
+                          "properties": {
+                            "self": {
+                              "type": "string"
+                            },
+                            "id": {
+                              "type": "integer"
+                            },
+                            "key": {
+                              "type": "string"
+                            },
+                            "colorName": {
+                              "type": "string"
+                            },
+                            "name": {
+                              "type": "string"
+                            }
+                          }
+                        },
+                        "aggregatetimespent": {},
+                        "resolution": {},
+                        "customfield_10035": {},
+                        "customfield_10036": {},
+                        "customfield_10037": {},
+                        "customfield_10027": {},
+                        "customfield_10028": {},
+                        "customfield_10029": {},
+                        "resolutiondate": {
+                          "anyOf": [
+                            {
+                              "type": "null"
+                            },
+                            {
+                              "type": "integer"
+                            }
+                          ]
+                        },
+                        "workratio": {
+                          "type": "integer"
+                        },
+                        "lastViewed": {
+                          "anyOf": [
+                            {
+                              "type": "string"
+                            },
+                            {
+                              "type": "null"
+                            }
+                          ]
+                        },
+                        "watches": {
+                          "type": "object",
+                          "properties": {
+                            "self": {
+                              "type": "string"
+                            },
+                            "watchCount": {
+                              "type": "integer"
+                            },
+                            "isWatching": {
+                              "type": "boolean"
+                            }
+                          }
+                        },
+                        "created": {
+                          "type": "integer"
+                        },
+                        "customfield_10020": {},
+                        "customfield_10021": {},
+                        "customfield_10022": {},
+                        "priority": {
+                          "type": "object",
+                          "properties": {
+                            "self": {
+                              "type": "string"
+                            },
+                            "id": {
+                              "type": "integer"
+                            },
+                            "name": {
+                              "type": "string"
+                            },
+                            "iconUrl": {
+                              "type": "string"
+                            },
+                            "namedValue": {
+                              "type": "string"
+                            }
+                          }
+                        },
+                        "customfield_10023": {},
+                        "customfield_10024": {},
+                        "customfield_10025": {},
+                        "customfield_10026": {},
+                        "labels": {
+                          "type": "array"
+                        },
+                        "customfield_10016": {},
+                        "customfield_10017": {},
+                        "customfield_10018": {
+                          "type": "object",
+                          "properties": {
+                            "hasEpicLinkFieldDependency": {
+                              "type": "boolean"
+                            },
+                            "showField": {
+                              "type": "boolean"
+                            },
+                            "nonEditableReason": {
+                              "type": "object",
+                              "properties": {
+                                "reason": {
+                                  "type": "string"
+                                },
+                                "message": {
+                                  "type": "string"
+                                }
+                              }
+                            }
+                          }
+                        },
+                        "customfield_10019": {
+                          "type": "string"
+                        },
+                        "timeestimate": {
+                          "anyOf": [
+                            {
+                              "type": "null"
+                            },
+                            {
+                              "type": "integer"
+                            }
+                          ]
+                        },
+                        "aggregatetimeoriginalestimate": {},
+                        "versions": {
+                          "type": "array"
+                        },
+                        "issuelinks": {
+                          "type": "array"
+                        },
+                        "assignee": {
+                          "anyOf": [
+                            {
+                              "type": "object",
+                              "properties": {
+                                "self": {
+                                  "type": "string"
+                                },
+                                "name": {},
+                                "key": {},
+                                "accountId": {
+                                  "type": "string"
+                                },
+                                "emailAddress": {},
+                                "avatarUrls": {
+                                  "type": "object",
+                                  "properties": {
+                                    "48x48": {
+                                      "type": "string"
+                                    },
+                                    "24x24": {
+                                      "type": "string"
+                                    },
+                                    "16x16": {
+                                      "type": "string"
+                                    },
+                                    "32x32": {
+                                      "type": "string"
+                                    }
+                                  }
+                                },
+                                "displayName": {
+                                  "type": "string"
+                                },
+                                "active": {
+                                  "type": "boolean"
+                                },
+                                "timeZone": {
+                                  "type": "string"
+                                },
+                                "groups": {},
+                                "locale": {},
+                                "accountType": {
+                                  "type": "string"
+                                }
+                              }
+                            },
+                            {
+                              "type": "null"
+                            }
+                          ]
+                        },
+                        "updated": {
+                          "type": "integer"
+                        },
+                        "status": {
+                          "type": "object",
+                          "properties": {
+                            "self": {
+                              "type": "string"
+                            },
+                            "description": {
+                              "type": "string"
+                            },
+                            "iconUrl": {
+                              "type": "string"
+                            },
+                            "name": {
+                              "type": "string"
+                            },
+                            "untranslatedName": {},
+                            "id": {
+                              "type": "integer"
+                            },
+                            "statusCategory": {
+                              "type": "object",
+                              "properties": {
+                                "self": {
+                                  "type": "string"
+                                },
+                                "id": {
+                                  "type": "integer"
+                                },
+                                "key": {
+                                  "type": "string"
+                                },
+                                "colorName": {
+                                  "type": "string"
+                                },
+                                "name": {
+                                  "type": "string"
+                                }
+                              }
+                            },
+                            "untranslatedNameValue": {}
+                          }
+                        },
+                        "components": {
+                          "type": "array"
+                        },
+                        "customfield_10050": {},
+                        "timeoriginalestimate": {},
+                        "customfield_10051": {},
+                        "customfield_10052": {
+                          "anyOf": [
+                            {
+                              "type": "object",
+                              "properties": {
+                                "id": {
+                                  "type": "string"
+                                },
+                                "name": {
+                                  "type": "string"
+                                },
+                                "_links": {
+                                  "type": "object",
+                                  "properties": {
+                                    "self": {
+                                      "type": "string"
+                                    }
+                                  }
+                                },
+                                "completedCycles": {
+                                  "type": "array"
+                                },
+                                "ongoingCycle": {
+                                  "type": "object",
+                                  "properties": {
+                                    "startTime": {
+                                      "type": "object",
+                                      "properties": {
+                                        "iso8601": {
+                                          "type": "string"
+                                        },
+                                        "jira": {
+                                          "type": "string"
+                                        },
+                                        "friendly": {
+                                          "type": "string"
+                                        },
+                                        "epochMillis": {
+                                          "type": "integer"
+                                        }
+                                      }
+                                    },
+                                    "breachTime": {
+                                      "type": "object",
+                                      "properties": {
+                                        "iso8601": {
+                                          "type": "string"
+                                        },
+                                        "jira": {
+                                          "type": "string"
+                                        },
+                                        "friendly": {
+                                          "type": "string"
+                                        },
+                                        "epochMillis": {
+                                          "type": "integer"
+                                        }
+                                      }
+                                    },
+                                    "breached": {
+                                      "type": "boolean"
+                                    },
+                                    "paused": {
+                                      "type": "boolean"
+                                    },
+                                    "withinCalendarHours": {
+                                      "type": "boolean"
+                                    },
+                                    "goalDuration": {
+                                      "type": "object",
+                                      "properties": {
+                                        "millis": {
+                                          "type": "integer"
+                                        },
+                                        "friendly": {
+                                          "type": "string"
+                                        }
+                                      }
+                                    },
+                                    "elapsedTime": {
+                                      "type": "object",
+                                      "properties": {
+                                        "millis": {
+                                          "type": "integer"
+                                        },
+                                        "friendly": {
+                                          "type": "string"
+                                        }
+                                      }
+                                    },
+                                    "remainingTime": {
+                                      "type": "object",
+                                      "properties": {
+                                        "millis": {
+                                          "type": "integer"
+                                        },
+                                        "friendly": {
+                                          "type": "string"
+                                        }
+                                      }
+                                    }
+                                  }
+                                }
+                              }
+                            },
+                            {
+                              "type": "null"
+                            }
+                          ]
+                        },
+                        "description": {
+                          "type": "string"
+                        },
+                        "customfield_10053": {
+                          "anyOf": [
+                            {
+                              "type": "object",
+                              "properties": {
+                                "id": {
+                                  "type": "string"
+                                },
+                                "name": {
+                                  "type": "string"
+                                },
+                                "_links": {
+                                  "type": "object",
+                                  "properties": {
+                                    "self": {
+                                      "type": "string"
+                                    }
+                                  }
+                                },
+                                "completedCycles": {
+                                  "type": "array"
+                                },
+                                "ongoingCycle": {
+                                  "type": "object",
+                                  "properties": {
+                                    "startTime": {
+                                      "type": "object",
+                                      "properties": {
+                                        "iso8601": {
+                                          "type": "string"
+                                        },
+                                        "jira": {
+                                          "type": "string"
+                                        },
+                                        "friendly": {
+                                          "type": "string"
+                                        },
+                                        "epochMillis": {
+                                          "type": "integer"
+                                        }
+                                      }
+                                    },
+                                    "breachTime": {
+                                      "type": "object",
+                                      "properties": {
+                                        "iso8601": {
+                                          "type": "string"
+                                        },
+                                        "jira": {
+                                          "type": "string"
+                                        },
+                                        "friendly": {
+                                          "type": "string"
+                                        },
+                                        "epochMillis": {
+                                          "type": "integer"
+                                        }
+                                      }
+                                    },
+                                    "breached": {
+                                      "type": "boolean"
+                                    },
+                                    "paused": {
+                                      "type": "boolean"
+                                    },
+                                    "withinCalendarHours": {
+                                      "type": "boolean"
+                                    },
+                                    "goalDuration": {
+                                      "type": "object",
+                                      "properties": {
+                                        "millis": {
+                                          "type": "integer"
+                                        },
+                                        "friendly": {
+                                          "type": "string"
+                                        }
+                                      }
+                                    },
+                                    "elapsedTime": {
+                                      "type": "object",
+                                      "properties": {
+                                        "millis": {
+                                          "type": "integer"
+                                        },
+                                        "friendly": {
+                                          "type": "string"
+                                        }
+                                      }
+                                    },
+                                    "remainingTime": {
+                                      "type": "object",
+                                      "properties": {
+                                        "millis": {
+                                          "type": "integer"
+                                        },
+                                        "friendly": {
+                                          "type": "string"
+                                        }
+                                      }
+                                    }
+                                  }
+                                }
+                              }
+                            },
+                            {
+                              "type": "null"
+                            }
+                          ]
+                        },
+                        "customfield_10054": {
+                          "anyOf": [
+                            {
+                              "type": "object",
+                              "properties": {
+                                "id": {
+                                  "type": "string"
+                                },
+                                "name": {
+                                  "type": "string"
+                                },
+                                "_links": {
+                                  "type": "object",
+                                  "properties": {
+                                    "self": {
+                                      "type": "string"
+                                    }
+                                  }
+                                },
+                                "completedCycles": {
+                                  "type": "array"
+                                }
+                              }
+                            },
+                            {
+                              "type": "null"
+                            }
+                          ]
+                        },
+                        "customfield_10010": {
+                          "type": "object",
+                          "properties": {
+                            "_links": {
+                              "type": "object",
+                              "properties": {
+                                "jiraRest": {
+                                  "type": "string"
+                                },
+                                "web": {
+                                  "type": "string"
+                                },
+                                "agent": {
+                                  "type": "string"
+                                },
+                                "self": {
+                                  "type": "string"
+                                }
+                              }
+                            },
+                            "requestType": {
+                              "type": "object",
+                              "properties": {
+                                "_expands": {
+                                  "type": "array",
+                                  "items": {
+                                    "type": "string"
+                                  }
+                                },
+                                "id": {
+                                  "type": "string"
+                                },
+                                "_links": {
+                                  "type": "object",
+                                  "properties": {
+                                    "self": {
+                                      "type": "string"
+                                    }
+                                  }
+                                },
+                                "name": {
+                                  "type": "string"
+                                },
+                                "description": {
+                                  "type": "string"
+                                },
+                                "helpText": {
+                                  "type": "string"
+                                },
+                                "defaultName": {
+                                  "type": "string"
+                                },
+                                "issueTypeId": {
+                                  "type": "string"
+                                },
+                                "serviceDeskId": {
+                                  "type": "string"
+                                },
+                                "portalId": {
+                                  "type": "string"
+                                },
+                                "groupIds": {
+                                  "type": "array",
+                                  "items": {
+                                    "type": "string"
+                                  }
+                                },
+                                "icon": {
+                                  "type": "object",
+                                  "properties": {
+                                    "id": {
+                                      "type": "string"
+                                    },
+                                    "_links": {
+                                      "type": "object",
+                                      "properties": {
+                                        "iconUrls": {
+                                          "type": "object",
+                                          "properties": {
+                                            "48x48": {
+                                              "type": "string"
+                                            },
+                                            "24x24": {
+                                              "type": "string"
+                                            },
+                                            "16x16": {
+                                              "type": "string"
+                                            },
+                                            "32x32": {
+                                              "type": "string"
+                                            }
+                                          }
+                                        }
+                                      }
+                                    }
+                                  }
+                                }
+                              }
+                            },
+                            "currentStatus": {
+                              "type": "object",
+                              "properties": {
+                                "status": {
+                                  "type": "string"
+                                },
+                                "statusCategory": {
+                                  "type": "string"
+                                },
+                                "statusDate": {
+                                  "type": "object",
+                                  "properties": {
+                                    "iso8601": {
+                                      "type": "string"
+                                    },
+                                    "jira": {
+                                      "type": "string"
+                                    },
+                                    "friendly": {
+                                      "type": "string"
+                                    },
+                                    "epochMillis": {
+                                      "type": "integer"
+                                    }
+                                  }
+                                }
+                              }
+                            }
+                          }
+                        },
+                        "customfield_10014": {},
+                        "timetracking": {
+                          "type": "object",
+                          "properties": {
+                            "originalEstimate": {},
+                            "remainingEstimate": {},
+                            "timeSpent": {},
+                            "originalEstimateSeconds": {
+                              "type": "integer"
+                            },
+                            "remainingEstimateSeconds": {
+                              "type": "integer"
+                            },
+                            "timeSpentSeconds": {
+                              "type": "integer"
+                            }
+                          }
+                        },
+                        "customfield_10015": {},
+                        "customfield_10049": {
+                          "type": "array",
+                          "items": {
+                            "type": "object",
+                            "properties": {
+                              "ari": {
+                                "type": "string"
+                              },
+                              "name": {
+                                "type": "string"
+                              },
+                              "type": {
+                                "type": "string"
+                              },
+                              "avatarUrl": {
+                                "type": "string"
+                              }
+                            },
+                            "required": [
+                              "ari",
+                              "name",
+                              "type",
+                              "avatarUrl"
+                            ]
+                          }
+                        },
+                        "customfield_10005": {},
+                        "customfield_10006": {},
+                        "security": {},
+                        "customfield_10007": {},
+                        "customfield_10008": {},
+                        "customfield_10009": {},
+                        "aggregatetimeestimate": {},
+                        "attachment": {
+                          "type": "array"
+                        },
+                        "summary": {
+                          "type": "string"
+                        },
+                        "creator": {
+                          "type": "object",
+                          "properties": {
+                            "self": {
+                              "type": "string"
+                            },
+                            "name": {},
+                            "key": {},
+                            "accountId": {
+                              "type": "string"
+                            },
+                            "emailAddress": {},
+                            "avatarUrls": {
+                              "type": "object",
+                              "properties": {
+                                "48x48": {
+                                  "type": "string"
+                                },
+                                "24x24": {
+                                  "type": "string"
+                                },
+                                "16x16": {
+                                  "type": "string"
+                                },
+                                "32x32": {
+                                  "type": "string"
+                                }
+                              }
+                            },
+                            "displayName": {
+                              "type": "string"
+                            },
+                            "active": {
+                              "type": "boolean"
+                            },
+                            "timeZone": {
+                              "type": "string"
+                            },
+                            "groups": {},
+                            "locale": {},
+                            "accountType": {
+                              "type": "string"
+                            }
+                          }
+                        },
+                        "subtasks": {
+                          "type": "array",
+                          "items": {
+                            "type": "object",
+                            "properties": {
+                              "self": {
+                                "type": "string"
+                              },
+                              "id": {
+                                "type": "integer"
+                              },
+                              "key": {
+                                "type": "string"
+                              },
+                              "changelog": {
+                                "type": "object",
+                                "properties": {
+                                  "startAt": {
+                                    "type": "integer"
+                                  },
+                                  "maxResults": {
+                                    "type": "integer"
+                                  },
+                                  "total": {
+                                    "type": "integer"
+                                  },
+                                  "histories": {}
+                                }
+                              },
+                              "fields": {
+                                "type": "object",
+                                "properties": {
+                                  "summary": {
+                                    "type": "string"
+                                  },
+                                  "status": {
+                                    "type": "object",
+                                    "properties": {
+                                      "self": {
+                                        "type": "string"
+                                      },
+                                      "description": {
+                                        "type": "string"
+                                      },
+                                      "iconUrl": {
+                                        "type": "string"
+                                      },
+                                      "name": {
+                                        "type": "string"
+                                      },
+                                      "untranslatedName": {},
+                                      "id": {
+                                        "type": "integer"
+                                      },
+                                      "statusCategory": {
+                                        "type": "object",
+                                        "properties": {
+                                          "self": {
+                                            "type": "string"
+                                          },
+                                          "id": {
+                                            "type": "integer"
+                                          },
+                                          "key": {
+                                            "type": "string"
+                                          },
+                                          "colorName": {
+                                            "type": "string"
+                                          },
+                                          "name": {
+                                            "type": "string"
+                                          }
+                                        }
+                                      },
+                                      "untranslatedNameValue": {}
+                                    }
+                                  },
+                                  "priority": {
+                                    "type": "object",
+                                    "properties": {
+                                      "self": {
+                                        "type": "string"
+                                      },
+                                      "id": {
+                                        "type": "integer"
+                                      },
+                                      "name": {
+                                        "type": "string"
+                                      },
+                                      "iconUrl": {
+                                        "type": "string"
+                                      },
+                                      "namedValue": {
+                                        "type": "string"
+                                      }
+                                    }
+                                  },
+                                  "issuetype": {
+                                    "type": "object",
+                                    "properties": {
+                                      "namedValue": {
+                                        "type": "string"
+                                      },
+                                      "self": {
+                                        "type": "string"
+                                      },
+                                      "id": {
+                                        "type": "integer"
+                                      },
+                                      "description": {
+                                        "type": "string"
+                                      },
+                                      "iconUrl": {
+                                        "type": "string"
+                                      },
+                                      "name": {
+                                        "type": "string"
+                                      },
+                                      "untranslatedName": {},
+                                      "subtask": {
+                                        "type": "boolean"
+                                      },
+                                      "fields": {
+                                        "type": "object",
+                                        "properties": {}
+                                      },
+                                      "statuses": {
+                                        "type": "array"
+                                      },
+                                      "hierarchyLevel": {
+                                        "type": "integer"
+                                      }
+                                    }
+                                  }
+                                }
+                              },
+                              "renderedFields": {}
+                            },
+                            "required": [
+                              "self",
+                              "id",
+                              "key",
+                              "changelog",
+                              "fields",
+                              "renderedFields"
+                            ]
+                          }
+                        },
+                        "customfield_10040": {
+                          "type": "array"
+                        },
+                        "customfield_10041": {},
+                        "customfield_10042": {},
+                        "reporter": {
+                          "type": "object",
+                          "properties": {
+                            "self": {
+                              "type": "string"
+                            },
+                            "name": {},
+                            "key": {},
+                            "accountId": {
+                              "type": "string"
+                            },
+                            "emailAddress": {},
+                            "avatarUrls": {
+                              "type": "object",
+                              "properties": {
+                                "48x48": {
+                                  "type": "string"
+                                },
+                                "24x24": {
+                                  "type": "string"
+                                },
+                                "16x16": {
+                                  "type": "string"
+                                },
+                                "32x32": {
+                                  "type": "string"
+                                }
+                              }
+                            },
+                            "displayName": {
+                              "type": "string"
+                            },
+                            "active": {
+                              "type": "boolean"
+                            },
+                            "timeZone": {
+                              "type": "string"
+                            },
+                            "groups": {},
+                            "locale": {},
+                            "accountType": {
+                              "type": "string"
+                            }
+                          }
+                        },
+                        "customfield_10043": {
+                          "anyOf": [
+                            {
+                              "type": "object",
+                              "properties": {
+                                "languageCode": {
+                                  "type": "string"
+                                },
+                                "displayName": {
+                                  "type": "string"
+                                }
+                              }
+                            },
+                            {
+                              "type": "null"
+                            }
+                          ]
+                        },
+                        "aggregateprogress": {
+                          "type": "object",
+                          "properties": {
+                            "progress": {
+                              "type": "integer"
+                            },
+                            "total": {
+                              "type": "integer"
+                            }
+                          }
+                        },
+                        "customfield_10044": {
+                          "anyOf": [
+                            {
+                              "type": "object",
+                              "properties": {
+                                "self": {
+                                  "type": "string"
+                                },
+                                "value": {
+                                  "type": "string"
+                                },
+                                "id": {
+                                  "type": "string"
+                                }
+                              }
+                            },
+                            {
+                              "type": "null"
+                            }
+                          ]
+                        },
+                        "customfield_10001": {},
+                        "customfield_10045": {
+                          "anyOf": [
+                            {
+                              "type": "array",
+                              "items": {
+                                "type": "object",
+                                "properties": {
+                                  "id": {
+                                    "type": "string"
+                                  }
+                                },
+                                "required": [
+                                  "id"
+                                ]
+                              }
+                            },
+                            {
+                              "type": "null"
+                            }
+                          ]
+                        },
+                        "customfield_10046": {},
+                        "customfield_10002": {
+                          "type": "array"
+                        },
+                        "customfield_10047": {},
+                        "customfield_10003": {},
+                        "customfield_10048": {},
+                        "customfield_10004": {
+                          "anyOf": [
+                            {
+                              "type": "object",
+                              "properties": {
+                                "self": {
+                                  "type": "string"
+                                },
+                                "value": {
+                                  "type": "string"
+                                },
+                                "id": {
+                                  "type": "string"
+                                }
+                              }
+                            },
+                            {
+                              "type": "null"
+                            }
+                          ]
+                        },
+                        "customfield_10038": {
+                          "type": "string"
+                        },
+                        "customfield_10039": {},
+                        "environment": {},
+                        "duedate": {},
+                        "progress": {
+                          "type": "object",
+                          "properties": {
+                            "progress": {
+                              "type": "integer"
+                            },
+                            "total": {
+                              "type": "integer"
+                            }
+                          }
+                        },
+                        "votes": {
+                          "type": "object",
+                          "properties": {
+                            "self": {
+                              "type": "string"
+                            },
+                            "votes": {
+                              "type": "integer"
+                            },
+                            "hasVoted": {
+                              "type": "boolean"
+                            }
+                          }
+                        },
+                        "comment": {
+                          "type": "object",
+                          "properties": {
+                            "maxResults": {
+                              "type": "integer"
+                            },
+                            "total": {
+                              "type": "integer"
+                            },
+                            "startAt": {
+                              "type": "integer"
+                            },
+                            "comments": {
+                              "type": "array",
+                              "items": {
+                                "type": "object",
+                                "properties": {
+                                  "self": {
+                                    "type": "string"
+                                  },
+                                  "id": {
+                                    "type": "integer"
+                                  },
+                                  "author": {
+                                    "type": "object",
+                                    "properties": {
+                                      "self": {
+                                        "type": "string"
+                                      },
+                                      "name": {},
+                                      "key": {},
+                                      "accountId": {
+                                        "type": "string"
+                                      },
+                                      "emailAddress": {},
+                                      "avatarUrls": {
+                                        "type": "object",
+                                        "properties": {
+                                          "48x48": {
+                                            "type": "string"
+                                          },
+                                          "24x24": {
+                                            "type": "string"
+                                          },
+                                          "16x16": {
+                                            "type": "string"
+                                          },
+                                          "32x32": {
+                                            "type": "string"
+                                          }
+                                        }
+                                      },
+                                      "displayName": {
+                                        "type": "string"
+                                      },
+                                      "active": {
+                                        "type": "boolean"
+                                      },
+                                      "timeZone": {
+                                        "type": "string"
+                                      },
+                                      "groups": {},
+                                      "locale": {},
+                                      "accountType": {
+                                        "type": "string"
+                                      }
+                                    }
+                                  },
+                                  "body": {
+                                    "type": "string"
+                                  },
+                                  "renderedBody": {},
+                                  "updateAuthor": {
+                                    "type": "object",
+                                    "properties": {
+                                      "self": {
+                                        "type": "string"
+                                      },
+                                      "name": {},
+                                      "key": {},
+                                      "accountId": {
+                                        "type": "string"
+                                      },
+                                      "emailAddress": {},
+                                      "avatarUrls": {
+                                        "type": "object",
+                                        "properties": {
+                                          "48x48": {
+                                            "type": "string"
+                                          },
+                                          "24x24": {
+                                            "type": "string"
+                                          },
+                                          "16x16": {
+                                            "type": "string"
+                                          },
+                                          "32x32": {
+                                            "type": "string"
+                                          }
+                                        }
+                                      },
+                                      "displayName": {
+                                        "type": "string"
+                                      },
+                                      "active": {
+                                        "type": "boolean"
+                                      },
+                                      "timeZone": {
+                                        "type": "string"
+                                      },
+                                      "groups": {},
+                                      "locale": {},
+                                      "accountType": {
+                                        "type": "string"
+                                      }
+                                    }
+                                  },
+                                  "created": {
+                                    "type": "integer"
+                                  },
+                                  "updated": {
+                                    "type": "integer"
+                                  },
+                                  "visibility": {}
+                                },
+                                "required": [
+                                  "self",
+                                  "id",
+                                  "author",
+                                  "body",
+                                  "renderedBody",
+                                  "updateAuthor",
+                                  "created",
+                                  "updated",
+                                  "visibility"
+                                ]
+                              }
+                            },
+                            "last": {
+                              "type": "boolean"
+                            }
+                          }
+                        },
+                        "worklog": {
+                          "type": "object",
+                          "properties": {
+                            "maxResults": {
+                              "type": "integer"
+                            },
+                            "total": {
+                              "type": "integer"
+                            },
+                            "startAt": {
+                              "type": "integer"
+                            },
+                            "worklogs": {
+                              "type": "array"
+                            },
+                            "last": {
+                              "type": "boolean"
+                            }
+                          }
+                        }
+                      }
+                    },
+                    "renderedFields": {}
+                  }
+                },
+                "user": {
+                  "type": "object",
+                  "properties": {
+                    "self": {},
+                    "name": {
+                      "type": "string"
+                    },
+                    "key": {
+                      "type": "string"
+                    },
+                    "accountId": {
+                      "type": "string"
+                    },
+                    "emailAddress": {
+                      "type": "string"
+                    },
+                    "avatarUrls": {
+                      "type": "object",
+                      "properties": {
+                        "48x48": {
+                          "type": "string"
+                        },
+                        "24x24": {
+                          "type": "string"
+                        },
+                        "16x16": {
+                          "type": "string"
+                        },
+                        "32x32": {
+                          "type": "string"
+                        }
+                      }
+                    },
+                    "displayName": {
+                      "type": "string"
+                    },
+                    "active": {
+                      "type": "boolean"
+                    },
+                    "timeZone": {},
+                    "groups": {},
+                    "locale": {
+                      "type": "string"
+                    },
+                    "accountType": {
+                      "type": "string"
+                    }
+                  }
+                },
+                "timestamp": {
+                  "type": "integer"
+                }
+              }
+            },
+            "triggerAuthenticationType": "Tenant"
+          }
+        }
+      },
+      "actions": {
+        "List_rows": {
+          "runAfter": {
+            "Apply_to_each": [
+              "Succeeded"
+            ]
+          },
+          "type": "OpenApiConnection",
+          "inputs": {
+            "parameters": {
+              "entityName": "crbc3_incidents",
+              "$filter": "crbc3_id eq '@{triggerBody()?['issue']?['key']}'"
+            },
+            "host": {
+              "apiId": "/providers/Microsoft.PowerApps/apis/shared_commondataserviceforapps",
+              "connectionName": "shared_commondataserviceforapps",
+              "operationId": "ListRecords"
+            },
+            "authentication": "@parameters('$authentication')"
+          }
+        },
+        "Condition": {
+          "actions": {
+            "Update_a_row": {
+              "type": "OpenApiConnection",
+              "inputs": {
+                "parameters": {
+                  "entityName": "crbc3_incidents",
+                  "recordId": "@first(outputs('List_rows')?['body/value'])?['crbc3_incidentid']",
+                  "item/crbc3_id": "@triggerBody()?['issue']?['key']",
+                  "item/crbc3_assignee": "@triggerBody()?['issue']?['fields']?['assignee']?['displayName']",
+                  "item/crbc3_avaiabletransitions": "@variables('serializedTransitions')",
+                  "item/crbc3_breachtime_resolution": "@triggerBody()?['issue']?['fields']?['customfield_10052']?['ongoingCycle']?['breachTime']?['iso8601']",
+                  "item/crbc3_breachtime_response": "@triggerBody()?['issue']?['fields']?['customfield_10053']?['ongoingCycle']?['breachTime']?['iso8601']",
+                  "item/crbc3_datecreated2": "@addSeconds('1970-01-01', div(triggerBody()?['issue']?['fields']?['created'], 1000), 'yyyy. MM. dd. HH:mm')",
+                  "item/crbc3_description": "@triggerBody()?['issue']?['fields']?['description']",
+                  "item/crbc3_impact": "@triggerBody()?['issue']?['fields']?['customfield_10004']?['value']",
+                  "item/crbc3_priority": "@triggerBody()?['issue']?['fields']?['priority']?['namedValue']",
+                  "item/crbc3_service_ari": "@if(equals(triggerBody()?['issue']?['fields']?['customfield_10045'], null),'-',first(triggerBody()?['issue']?['fields']?['customfield_10045'])?['id'])",
+                  "item/crbc3_status": "@triggerBody()?['issue']?['fields']?['status']?['name']",
+                  "item/crbc3_summary": "@triggerBody()?['issue']?['fields']?['summary']",
+                  "item/crbc3_urgency": "@triggerBody()?['issue']?['fields']?['customfield_10044']?['value']"
+                },
+                "host": {
+                  "apiId": "/providers/Microsoft.PowerApps/apis/shared_commondataserviceforapps",
+                  "connectionName": "shared_commondataserviceforapps",
+                  "operationId": "UpdateOnlyRecord"
+                },
+                "authentication": "@parameters('$authentication')"
+              }
+            }
+          },
+          "runAfter": {
+            "List_rows": [
+              "Succeeded"
+            ]
+          },
+          "else": {
+            "actions": {
+              "Add_a_new_row": {
+                "type": "OpenApiConnection",
+                "inputs": {
+                  "parameters": {
+                    "entityName": "crbc3_incidents",
+                    "item/crbc3_id": "@triggerBody()?['issue']?['key']",
+                    "item/crbc3_type": "-",
+                    "item/crbc3_assignee": "@triggerBody()?['issue']?['fields']?['assignee']?['displayName']",
+                    "item/crbc3_avaiabletransitions": "@variables('serializedTransitions')",
+                    "item/crbc3_breachtime_resolution": "@triggerBody()?['issue']?['fields']?['customfield_10052']?['ongoingCycle']?['breachTime']?['iso8601']",
+                    "item/crbc3_breachtime_response": "@triggerBody()?['issue']?['fields']?['customfield_10053']?['ongoingCycle']?['breachTime']?['iso8601']",
+                    "item/crbc3_datecreated2": "@addSeconds('1970-01-01', div(triggerBody()?['issue']?['fields']?['created'], 1000), 'yyyy. MM. dd. HH:mm')",
+                    "item/crbc3_description": "@triggerBody()?['issue']?['fields']?['description']",
+                    "item/crbc3_impact": "@triggerBody()?['issue']?['fields']?['customfield_10004']?['value']",
+                    "item/crbc3_priority": "@triggerBody()?['issue']?['fields']?['priority']?['namedValue']",
+                    "item/crbc3_service_ari": "@if(equals(triggerBody()?['issue']?['fields']?['customfield_10045'], null),'-',first(triggerBody()?['issue']?['fields']?['customfield_10045'])?['id'])",
+                    "item/crbc3_status": "@triggerBody()?['issue']?['fields']?['status']?['name']",
+                    "item/crbc3_summary": "@triggerBody()?['issue']?['fields']?['summary']",
+                    "item/crbc3_urgency": "@triggerBody()?['issue']?['fields']?['customfield_10044']?['value']"
+                  },
+                  "host": {
+                    "apiId": "/providers/Microsoft.PowerApps/apis/shared_commondataserviceforapps",
+                    "connectionName": "shared_commondataserviceforapps",
+                    "operationId": "CreateRecord"
+                  },
+                  "authentication": "@parameters('$authentication')"
+                }
+              }
+            }
+          },
+          "expression": {
+            "and": [
+              {
+                "greater": [
+                  "@length(outputs('List_rows')?['body/value'])",
+                  0
+                ]
+              }
+            ]
+          },
+          "type": "If"
+        },
+        "HTTP": {
+          "runAfter": {},
+          "type": "Http",
+          "inputs": {
+            "uri": "https://szkercza-1.atlassian.net/rest/api/3/issue/@{triggerBody()?['issue']?['key']}/transitions",
+            "method": "GET",
+            "authentication": {
+              "type": "Basic",
+              "username": "szkercza@gmail.com",
+              "password": "*****"
+            }
+          },
+          "runtimeConfiguration": {
+            "contentTransfer": {
+              "transferMode": "Chunked"
+            }
+          }
+        },
+        "Parse_JSON": {
+          "runAfter": {
+            "HTTP": [
+              "Succeeded"
+            ]
+          },
+          "type": "ParseJson",
+          "inputs": {
+            "content": "@body('HTTP')",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "expand": {
+                  "type": "string"
+                },
+                "transitions": {
+                  "type": "array",
+                  "items": {
+                    "type": "object",
+                    "properties": {
+                      "id": {
+                        "type": "string"
+                      },
+                      "name": {
+                        "type": "string"
+                      },
+                      "to": {
+                        "type": "object",
+                        "properties": {
+                          "self": {
+                            "type": "string"
+                          },
+                          "description": {
+                            "type": "string"
+                          },
+                          "iconUrl": {
+                            "type": "string"
+                          },
+                          "name": {
+                            "type": "string"
+                          },
+                          "id": {
+                            "type": "string"
+                          },
+                          "statusCategory": {
+                            "type": "object",
+                            "properties": {
+                              "self": {
+                                "type": "string"
+                              },
+                              "id": {
+                                "type": "integer"
+                              },
+                              "key": {
+                                "type": "string"
+                              },
+                              "colorName": {
+                                "type": "string"
+                              },
+                              "name": {
+                                "type": "string"
+                              }
+                            }
+                          }
+                        }
+                      },
+                      "hasScreen": {
+                        "type": "boolean"
+                      },
+                      "isGlobal": {
+                        "type": "boolean"
+                      },
+                      "isInitial": {
+                        "type": "boolean"
+                      },
+                      "isAvailable": {
+                        "type": "boolean"
+                      },
+                      "isConditional": {
+                        "type": "boolean"
+                      },
+                      "isLooped": {
+                        "type": "boolean"
+                      }
+                    },
+                    "required": [
+                      "id",
+                      "name",
+                      "to",
+                      "hasScreen",
+                      "isGlobal",
+                      "isInitial",
+                      "isAvailable",
+                      "isConditional",
+                      "isLooped"
+                    ]
+                  }
+                }
+              }
+            }
+          }
+        },
+        "Apply_to_each": {
+          "foreach": "@body('Parse_JSON')?['transitions']",
+          "actions": {
+            "Append_to_array_variable": {
+              "type": "AppendToArrayVariable",
+              "inputs": {
+                "name": "serializedTransitions",
+                "value": {
+                  "id": "@items('Apply_to_each')?['id']",
+                  "name": "@items('Apply_to_each')?['name']"
+                }
+              }
+            }
+          },
+          "runAfter": {
+            "Initialize_variable": [
+              "Succeeded"
+            ]
+          },
+          "type": "Foreach"
+        },
+        "Initialize_variable": {
+          "runAfter": {
+            "Parse_JSON": [
+              "Succeeded"
+            ]
+          },
+          "type": "InitializeVariable",
+          "inputs": {
+            "variables": [
+              {
+                "name": "serializedTransitions",
+                "type": "array"
+              }
+            ]
+          }
+        }
+      },
+      "outputs": {}
+    },
+    "templateName": null
+  },
+  "schemaVersion": "1.0.0.0"
+}

@@ -1,0 +1,1290 @@
+{
+  "properties": {
+    "connectionReferences": {
+      "shared_commondataserviceforapps": {
+        "impersonation": {},
+        "runtimeSource": "embedded",
+        "connection": {
+          "connectionReferenceLogicalName": "crbc3_sharedcommondataserviceforapps_5abba"
+        },
+        "api": {
+          "name": "shared_commondataserviceforapps"
+        }
+      }
+    },
+    "definition": {
+      "$schema": "https://schema.management.azure.com/providers/Microsoft.Logic/schemas/2016-06-01/workflowdefinition.json#",
+      "contentVersion": "1.0.0.0",
+      "parameters": {
+        "$authentication": {
+          "defaultValue": {},
+          "type": "SecureObject"
+        },
+        "$connections": {
+          "defaultValue": {},
+          "type": "Object"
+        }
+      },
+      "triggers": {
+        "manual": {
+          "type": "Request",
+          "kind": "Button",
+          "inputs": {
+            "schema": {
+              "type": "object",
+              "properties": {},
+              "required": []
+            }
+          }
+        }
+      },
+      "actions": {
+        "HTTP_-_Fetch_current_incidents": {
+          "runAfter": {},
+          "type": "Http",
+          "inputs": {
+            "uri": "https://szkercza-1.atlassian.net/rest/api/3/search?jql=project=SUP",
+            "method": "GET",
+            "authentication": {
+              "type": "Basic",
+              "username": "szkercza@gmail.com",
+              "password": "*****"
+            }
+          },
+          "runtimeConfiguration": {
+            "contentTransfer": {
+              "transferMode": "Chunked"
+            }
+          }
+        },
+        "List_all_rows_for_deletion": {
+          "runAfter": {
+            "Parse_JSON": [
+              "Succeeded"
+            ]
+          },
+          "type": "OpenApiConnection",
+          "inputs": {
+            "parameters": {
+              "entityName": "crbc3_incidents"
+            },
+            "host": {
+              "apiId": "/providers/Microsoft.PowerApps/apis/shared_commondataserviceforapps",
+              "connectionName": "shared_commondataserviceforapps",
+              "operationId": "ListRecords"
+            },
+            "authentication": "@parameters('$authentication')"
+          }
+        },
+        "Apply_to_each_1": {
+          "foreach": "@outputs('List_all_rows_for_deletion')?['body/value']",
+          "actions": {
+            "Delete_a_row": {
+              "type": "OpenApiConnection",
+              "inputs": {
+                "parameters": {
+                  "entityName": "crbc3_incidents",
+                  "recordId": "@items('Apply_to_each_1')?['crbc3_incidentid']"
+                },
+                "host": {
+                  "apiId": "/providers/Microsoft.PowerApps/apis/shared_commondataserviceforapps",
+                  "connectionName": "shared_commondataserviceforapps",
+                  "operationId": "DeleteRecord"
+                },
+                "authentication": "@parameters('$authentication')"
+              }
+            }
+          },
+          "runAfter": {
+            "List_all_rows_for_deletion": [
+              "Succeeded"
+            ]
+          },
+          "type": "Foreach"
+        },
+        "Parse_JSON": {
+          "runAfter": {
+            "HTTP_-_Fetch_current_incidents": [
+              "Succeeded"
+            ]
+          },
+          "type": "ParseJson",
+          "inputs": {
+            "content": "@body('HTTP_-_Fetch_current_incidents')",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "expand": {
+                  "type": "string"
+                },
+                "startAt": {
+                  "type": "integer"
+                },
+                "maxResults": {
+                  "type": "integer"
+                },
+                "total": {
+                  "type": "integer"
+                },
+                "issues": {
+                  "type": "array",
+                  "items": {
+                    "type": "object",
+                    "properties": {
+                      "expand": {
+                        "type": "string"
+                      },
+                      "id": {
+                        "type": "string"
+                      },
+                      "self": {
+                        "type": "string"
+                      },
+                      "key": {
+                        "type": "string"
+                      },
+                      "fields": {
+                        "type": "object",
+                        "properties": {
+                          "statuscategorychangedate": {
+                            "type": "string"
+                          },
+                          "issuetype": {
+                            "type": "object",
+                            "properties": {
+                              "self": {
+                                "type": "string"
+                              },
+                              "id": {
+                                "type": "string"
+                              },
+                              "description": {
+                                "type": "string"
+                              },
+                              "iconUrl": {
+                                "type": "string"
+                              },
+                              "name": {
+                                "type": "string"
+                              },
+                              "subtask": {
+                                "type": "boolean"
+                              },
+                              "avatarId": {
+                                "type": "integer"
+                              },
+                              "hierarchyLevel": {
+                                "type": "integer"
+                              }
+                            }
+                          },
+                          "timespent": {},
+                          "customfield_10030": {},
+                          "project": {
+                            "type": "object",
+                            "properties": {
+                              "self": {
+                                "type": "string"
+                              },
+                              "id": {
+                                "type": "string"
+                              },
+                              "key": {
+                                "type": "string"
+                              },
+                              "name": {
+                                "type": "string"
+                              },
+                              "projectTypeKey": {
+                                "type": "string"
+                              },
+                              "simplified": {
+                                "type": "boolean"
+                              },
+                              "avatarUrls": {
+                                "type": "object",
+                                "properties": {
+                                  "48x48": {
+                                    "type": "string"
+                                  },
+                                  "24x24": {
+                                    "type": "string"
+                                  },
+                                  "16x16": {
+                                    "type": "string"
+                                  },
+                                  "32x32": {
+                                    "type": "string"
+                                  }
+                                }
+                              }
+                            }
+                          },
+                          "customfield_10031": {},
+                          "fixVersions": {
+                            "type": "array"
+                          },
+                          "customfield_10033": {},
+                          "statusCategory": {
+                            "type": "object",
+                            "properties": {
+                              "self": {
+                                "type": "string"
+                              },
+                              "id": {
+                                "type": "integer"
+                              },
+                              "key": {
+                                "type": "string"
+                              },
+                              "colorName": {
+                                "type": "string"
+                              },
+                              "name": {
+                                "type": "string"
+                              }
+                            }
+                          },
+                          "aggregatetimespent": {},
+                          "resolution": {},
+                          "customfield_10035": {},
+                          "customfield_10036": {},
+                          "customfield_10037": {},
+                          "customfield_10027": {},
+                          "customfield_10028": {},
+                          "customfield_10029": {},
+                          "resolutiondate": {},
+                          "workratio": {
+                            "type": "integer"
+                          },
+                          "watches": {
+                            "type": "object",
+                            "properties": {
+                              "self": {
+                                "type": "string"
+                              },
+                              "watchCount": {
+                                "type": "integer"
+                              },
+                              "isWatching": {
+                                "type": "boolean"
+                              }
+                            }
+                          },
+                          "lastViewed": {
+                            "type": [
+                              "string",
+                              "null"
+                            ]
+                          },
+                          "created": {
+                            "type": "string"
+                          },
+                          "customfield_10020": {},
+                          "customfield_10021": {},
+                          "customfield_10022": {},
+                          "priority": {
+                            "type": "object",
+                            "properties": {
+                              "self": {
+                                "type": "string"
+                              },
+                              "iconUrl": {
+                                "type": "string"
+                              },
+                              "name": {
+                                "type": "string"
+                              },
+                              "id": {
+                                "type": "string"
+                              }
+                            }
+                          },
+                          "customfield_10023": {},
+                          "customfield_10024": {},
+                          "customfield_10025": {},
+                          "customfield_10026": {},
+                          "labels": {
+                            "type": "array"
+                          },
+                          "customfield_10016": {},
+                          "customfield_10017": {},
+                          "customfield_10018": {
+                            "type": "object",
+                            "properties": {
+                              "hasEpicLinkFieldDependency": {
+                                "type": "boolean"
+                              },
+                              "showField": {
+                                "type": "boolean"
+                              },
+                              "nonEditableReason": {
+                                "type": "object",
+                                "properties": {
+                                  "reason": {
+                                    "type": "string"
+                                  },
+                                  "message": {
+                                    "type": "string"
+                                  }
+                                }
+                              }
+                            }
+                          },
+                          "customfield_10019": {
+                            "type": "string"
+                          },
+                          "timeestimate": {},
+                          "aggregatetimeoriginalestimate": {},
+                          "versions": {
+                            "type": "array"
+                          },
+                          "issuelinks": {
+                            "type": "array"
+                          },
+                          "assignee": {
+                            "type": "object",
+                            "properties": {
+                              "self": {
+                                "type": "string"
+                              },
+                              "accountId": {
+                                "type": "string"
+                              },
+                              "avatarUrls": {
+                                "type": "object",
+                                "properties": {
+                                  "48x48": {
+                                    "type": "string"
+                                  },
+                                  "24x24": {
+                                    "type": "string"
+                                  },
+                                  "16x16": {
+                                    "type": "string"
+                                  },
+                                  "32x32": {
+                                    "type": "string"
+                                  }
+                                }
+                              },
+                              "displayName": {
+                                "type": "string"
+                              },
+                              "active": {
+                                "type": "boolean"
+                              },
+                              "timeZone": {
+                                "type": "string"
+                              },
+                              "accountType": {
+                                "type": "string"
+                              }
+                            }
+                          },
+                          "updated": {
+                            "type": "string"
+                          },
+                          "status": {
+                            "type": "object",
+                            "properties": {
+                              "self": {
+                                "type": "string"
+                              },
+                              "description": {
+                                "type": "string"
+                              },
+                              "iconUrl": {
+                                "type": "string"
+                              },
+                              "name": {
+                                "type": "string"
+                              },
+                              "id": {
+                                "type": "string"
+                              },
+                              "statusCategory": {
+                                "type": "object",
+                                "properties": {
+                                  "self": {
+                                    "type": "string"
+                                  },
+                                  "id": {
+                                    "type": "integer"
+                                  },
+                                  "key": {
+                                    "type": "string"
+                                  },
+                                  "colorName": {
+                                    "type": "string"
+                                  },
+                                  "name": {
+                                    "type": "string"
+                                  }
+                                }
+                              }
+                            }
+                          },
+                          "components": {
+                            "type": "array"
+                          },
+                          "customfield_10050": {},
+                          "timeoriginalestimate": {},
+                          "customfield_10051": {},
+                          "customfield_10052": {
+                            "type": "object",
+                            "properties": {
+                              "id": {
+                                "type": "string"
+                              },
+                              "name": {
+                                "type": "string"
+                              },
+                              "_links": {
+                                "type": "object",
+                                "properties": {
+                                  "self": {
+                                    "type": "string"
+                                  }
+                                }
+                              },
+                              "completedCycles": {
+                                "type": "array"
+                              },
+                              "ongoingCycle": {
+                                "type": "object",
+                                "properties": {
+                                  "startTime": {
+                                    "type": "object",
+                                    "properties": {
+                                      "iso8601": {
+                                        "type": "string"
+                                      },
+                                      "jira": {
+                                        "type": "string"
+                                      },
+                                      "friendly": {
+                                        "type": "string"
+                                      },
+                                      "epochMillis": {
+                                        "type": "integer"
+                                      }
+                                    }
+                                  },
+                                  "breachTime": {
+                                    "type": "object",
+                                    "properties": {
+                                      "iso8601": {
+                                        "type": "string"
+                                      },
+                                      "jira": {
+                                        "type": "string"
+                                      },
+                                      "friendly": {
+                                        "type": "string"
+                                      },
+                                      "epochMillis": {
+                                        "type": "integer"
+                                      }
+                                    }
+                                  },
+                                  "breached": {
+                                    "type": "boolean"
+                                  },
+                                  "paused": {
+                                    "type": "boolean"
+                                  },
+                                  "withinCalendarHours": {
+                                    "type": "boolean"
+                                  },
+                                  "goalDuration": {
+                                    "type": "object",
+                                    "properties": {
+                                      "millis": {
+                                        "type": "integer"
+                                      },
+                                      "friendly": {
+                                        "type": "string"
+                                      }
+                                    }
+                                  },
+                                  "elapsedTime": {
+                                    "type": "object",
+                                    "properties": {
+                                      "millis": {
+                                        "type": "integer"
+                                      },
+                                      "friendly": {
+                                        "type": "string"
+                                      }
+                                    }
+                                  },
+                                  "remainingTime": {
+                                    "type": "object",
+                                    "properties": {
+                                      "millis": {
+                                        "type": "integer"
+                                      },
+                                      "friendly": {
+                                        "type": "string"
+                                      }
+                                    }
+                                  }
+                                }
+                              }
+                            }
+                          },
+                          "description": {
+                            "type": [
+                              "object",
+                              "null"
+                            ],
+                            "properties": {
+                              "type": {
+                                "type": "string"
+                              },
+                              "version": {
+                                "type": "integer"
+                              },
+                              "content": {
+                                "type": "array",
+                                "items": {
+                                  "type": "object",
+                                  "properties": {
+                                    "type": {
+                                      "type": "string"
+                                    },
+                                    "content": {
+                                      "type": "array",
+                                      "items": {
+                                        "type": "object",
+                                        "properties": {
+                                          "type": {
+                                            "type": "string"
+                                          },
+                                          "text": {
+                                            "type": "string"
+                                          }
+                                        },
+                                        "required": [
+                                          "type"
+                                        ]
+                                      }
+                                    }
+                                  },
+                                  "required": [
+                                    "type",
+                                    "content"
+                                  ]
+                                }
+                              }
+                            }
+                          },
+                          "customfield_10053": {
+                            "type": "object",
+                            "properties": {
+                              "id": {
+                                "type": "string"
+                              },
+                              "name": {
+                                "type": "string"
+                              },
+                              "_links": {
+                                "type": "object",
+                                "properties": {
+                                  "self": {
+                                    "type": "string"
+                                  }
+                                }
+                              },
+                              "completedCycles": {
+                                "type": "array"
+                              },
+                              "ongoingCycle": {
+                                "type": "object",
+                                "properties": {
+                                  "startTime": {
+                                    "type": "object",
+                                    "properties": {
+                                      "iso8601": {
+                                        "type": "string"
+                                      },
+                                      "jira": {
+                                        "type": "string"
+                                      },
+                                      "friendly": {
+                                        "type": "string"
+                                      },
+                                      "epochMillis": {
+                                        "type": "integer"
+                                      }
+                                    }
+                                  },
+                                  "breachTime": {
+                                    "type": "object",
+                                    "properties": {
+                                      "iso8601": {
+                                        "type": "string"
+                                      },
+                                      "jira": {
+                                        "type": "string"
+                                      },
+                                      "friendly": {
+                                        "type": "string"
+                                      },
+                                      "epochMillis": {
+                                        "type": "integer"
+                                      }
+                                    }
+                                  },
+                                  "breached": {
+                                    "type": "boolean"
+                                  },
+                                  "paused": {
+                                    "type": "boolean"
+                                  },
+                                  "withinCalendarHours": {
+                                    "type": "boolean"
+                                  },
+                                  "goalDuration": {
+                                    "type": "object",
+                                    "properties": {
+                                      "millis": {
+                                        "type": "integer"
+                                      },
+                                      "friendly": {
+                                        "type": "string"
+                                      }
+                                    }
+                                  },
+                                  "elapsedTime": {
+                                    "type": "object",
+                                    "properties": {
+                                      "millis": {
+                                        "type": "integer"
+                                      },
+                                      "friendly": {
+                                        "type": "string"
+                                      }
+                                    }
+                                  },
+                                  "remainingTime": {
+                                    "type": "object",
+                                    "properties": {
+                                      "millis": {
+                                        "type": "integer"
+                                      },
+                                      "friendly": {
+                                        "type": "string"
+                                      }
+                                    }
+                                  }
+                                }
+                              }
+                            }
+                          },
+                          "customfield_10054": {
+                            "type": "object",
+                            "properties": {
+                              "id": {
+                                "type": "string"
+                              },
+                              "name": {
+                                "type": "string"
+                              },
+                              "_links": {
+                                "type": "object",
+                                "properties": {
+                                  "self": {
+                                    "type": "string"
+                                  }
+                                }
+                              },
+                              "completedCycles": {
+                                "type": "array"
+                              }
+                            }
+                          },
+                          "customfield_10010": {
+                            "type": [
+                              "object",
+                              "null"
+                            ],
+                            "properties": {
+                              "_links": {
+                                "type": "object",
+                                "properties": {
+                                  "jiraRest": {
+                                    "type": "string"
+                                  },
+                                  "web": {
+                                    "type": "string"
+                                  },
+                                  "agent": {
+                                    "type": "string"
+                                  },
+                                  "self": {
+                                    "type": "string"
+                                  }
+                                }
+                              },
+                              "requestType": {
+                                "type": "object",
+                                "properties": {
+                                  "_expands": {
+                                    "type": "array",
+                                    "items": {
+                                      "type": "string"
+                                    }
+                                  },
+                                  "id": {
+                                    "type": "string"
+                                  },
+                                  "_links": {
+                                    "type": "object",
+                                    "properties": {
+                                      "self": {
+                                        "type": "string"
+                                      }
+                                    }
+                                  },
+                                  "name": {
+                                    "type": "string"
+                                  },
+                                  "description": {
+                                    "type": "string"
+                                  },
+                                  "helpText": {
+                                    "type": "string"
+                                  },
+                                  "defaultName": {
+                                    "type": "string"
+                                  },
+                                  "issueTypeId": {
+                                    "type": "string"
+                                  },
+                                  "serviceDeskId": {
+                                    "type": "string"
+                                  },
+                                  "portalId": {
+                                    "type": "string"
+                                  },
+                                  "groupIds": {
+                                    "type": "array",
+                                    "items": {
+                                      "type": "string"
+                                    }
+                                  },
+                                  "icon": {
+                                    "type": "object",
+                                    "properties": {
+                                      "id": {
+                                        "type": "string"
+                                      },
+                                      "_links": {
+                                        "type": "object",
+                                        "properties": {
+                                          "iconUrls": {
+                                            "type": "object",
+                                            "properties": {
+                                              "48x48": {
+                                                "type": "string"
+                                              },
+                                              "24x24": {
+                                                "type": "string"
+                                              },
+                                              "16x16": {
+                                                "type": "string"
+                                              },
+                                              "32x32": {
+                                                "type": "string"
+                                              }
+                                            }
+                                          }
+                                        }
+                                      }
+                                    }
+                                  }
+                                }
+                              },
+                              "currentStatus": {
+                                "type": "object",
+                                "properties": {
+                                  "status": {
+                                    "type": "string"
+                                  },
+                                  "statusCategory": {
+                                    "type": "string"
+                                  },
+                                  "statusDate": {
+                                    "type": "object",
+                                    "properties": {
+                                      "iso8601": {
+                                        "type": "string"
+                                      },
+                                      "jira": {
+                                        "type": "string"
+                                      },
+                                      "friendly": {
+                                        "type": "string"
+                                      },
+                                      "epochMillis": {
+                                        "type": "integer"
+                                      }
+                                    }
+                                  }
+                                }
+                              }
+                            }
+                          },
+                          "customfield_10014": {},
+                          "customfield_10015": {},
+                          "customfield_10049": {
+                            "type": "array",
+                            "items": {
+                              "type": "object",
+                              "properties": {
+                                "ari": {
+                                  "type": "string"
+                                },
+                                "name": {
+                                  "type": "string"
+                                },
+                                "type": {
+                                  "type": "string"
+                                },
+                                "avatarUrl": {
+                                  "type": "string"
+                                }
+                              },
+                              "required": [
+                                "ari",
+                                "name",
+                                "type",
+                                "avatarUrl"
+                              ]
+                            }
+                          },
+                          "customfield_10005": {},
+                          "customfield_10006": {},
+                          "security": {},
+                          "customfield_10007": {},
+                          "customfield_10008": {},
+                          "customfield_10009": {},
+                          "aggregatetimeestimate": {},
+                          "summary": {
+                            "type": "string"
+                          },
+                          "creator": {
+                            "type": "object",
+                            "properties": {
+                              "self": {
+                                "type": "string"
+                              },
+                              "accountId": {
+                                "type": "string"
+                              },
+                              "emailAddress": {
+                                "type": "string"
+                              },
+                              "avatarUrls": {
+                                "type": "object",
+                                "properties": {
+                                  "48x48": {
+                                    "type": "string"
+                                  },
+                                  "24x24": {
+                                    "type": "string"
+                                  },
+                                  "16x16": {
+                                    "type": "string"
+                                  },
+                                  "32x32": {
+                                    "type": "string"
+                                  }
+                                }
+                              },
+                              "displayName": {
+                                "type": "string"
+                              },
+                              "active": {
+                                "type": "boolean"
+                              },
+                              "timeZone": {
+                                "type": "string"
+                              },
+                              "accountType": {
+                                "type": "string"
+                              }
+                            }
+                          },
+                          "subtasks": {
+                            "type": "array"
+                          },
+                          "customfield_10040": {
+                            "type": "array"
+                          },
+                          "customfield_10041": {},
+                          "customfield_10042": {},
+                          "reporter": {
+                            "type": "object",
+                            "properties": {
+                              "self": {
+                                "type": "string"
+                              },
+                              "accountId": {
+                                "type": "string"
+                              },
+                              "emailAddress": {
+                                "type": "string"
+                              },
+                              "avatarUrls": {
+                                "type": "object",
+                                "properties": {
+                                  "48x48": {
+                                    "type": "string"
+                                  },
+                                  "24x24": {
+                                    "type": "string"
+                                  },
+                                  "16x16": {
+                                    "type": "string"
+                                  },
+                                  "32x32": {
+                                    "type": "string"
+                                  }
+                                }
+                              },
+                              "displayName": {
+                                "type": "string"
+                              },
+                              "active": {
+                                "type": "boolean"
+                              },
+                              "timeZone": {
+                                "type": "string"
+                              },
+                              "accountType": {
+                                "type": "string"
+                              }
+                            }
+                          },
+                          "customfield_10043": {
+                            "type": "object",
+                            "properties": {
+                              "languageCode": {
+                                "type": "string"
+                              },
+                              "displayName": {
+                                "type": "string"
+                              }
+                            }
+                          },
+                          "customfield_10044": {},
+                          "aggregateprogress": {
+                            "type": "object",
+                            "properties": {
+                              "progress": {
+                                "type": "integer"
+                              },
+                              "total": {
+                                "type": "integer"
+                              }
+                            }
+                          },
+                          "customfield_10001": {},
+                          "customfield_10045": {
+                            "type": [
+                              "array",
+                              "null"
+                            ],
+                            "items": {
+                              "type": "object",
+                              "properties": {
+                                "id": {
+                                  "type": "string"
+                                }
+                              },
+                              "required": [
+                                "id"
+                              ]
+                            }
+                          },
+                          "customfield_10046": {},
+                          "customfield_10002": {
+                            "type": "array"
+                          },
+                          "customfield_10047": {},
+                          "customfield_10003": {},
+                          "customfield_10004": {},
+                          "customfield_10048": {},
+                          "customfield_10038": {
+                            "type": [
+                              "string",
+                              "null"
+                            ]
+                          },
+                          "customfield_10039": {},
+                          "environment": {},
+                          "duedate": {},
+                          "progress": {
+                            "type": "object",
+                            "properties": {
+                              "progress": {
+                                "type": "integer"
+                              },
+                              "total": {
+                                "type": "integer"
+                              }
+                            }
+                          },
+                          "votes": {
+                            "type": "object",
+                            "properties": {
+                              "self": {
+                                "type": "string"
+                              },
+                              "votes": {
+                                "type": "integer"
+                              },
+                              "hasVoted": {
+                                "type": "boolean"
+                              }
+                            }
+                          }
+                        }
+                      }
+                    },
+                    "required": [
+                      "expand",
+                      "id",
+                      "self",
+                      "key",
+                      "fields"
+                    ]
+                  }
+                }
+              }
+            }
+          }
+        },
+        "Apply_to_each": {
+          "foreach": "@body('Parse_JSON')?['issues']",
+          "actions": {
+            "HTTP": {
+              "type": "Http",
+              "inputs": {
+                "uri": "https://szkercza-1.atlassian.net/rest/api/3/issue/@{items('Apply_to_each')?['key']}/transitions",
+                "method": "GET",
+                "authentication": {
+                  "type": "Basic",
+                  "username": "szkercza@gmail.com",
+                  "password": "*****"
+                }
+              },
+              "runtimeConfiguration": {
+                "contentTransfer": {
+                  "transferMode": "Chunked"
+                }
+              }
+            },
+            "Apply_to_each_2": {
+              "foreach": "@body('Parse_JSON_1')?['transitions']",
+              "actions": {
+                "Append_to_array_variable": {
+                  "type": "AppendToArrayVariable",
+                  "inputs": {
+                    "name": "transitions",
+                    "value": {
+                      "id": "@items('Apply_to_each_2')?['id']",
+                      "name": "@items('Apply_to_each_2')?['name']"
+                    }
+                  }
+                }
+              },
+              "runAfter": {
+                "Parse_JSON_1": [
+                  "Succeeded"
+                ]
+              },
+              "type": "Foreach"
+            },
+            "Parse_JSON_1": {
+              "runAfter": {
+                "HTTP": [
+                  "Succeeded"
+                ]
+              },
+              "type": "ParseJson",
+              "inputs": {
+                "content": "@body('HTTP')",
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "expand": {
+                      "type": "string"
+                    },
+                    "transitions": {
+                      "type": "array",
+                      "items": {
+                        "type": "object",
+                        "properties": {
+                          "id": {
+                            "type": "string"
+                          },
+                          "name": {
+                            "type": "string"
+                          },
+                          "to": {
+                            "type": "object",
+                            "properties": {
+                              "self": {
+                                "type": "string"
+                              },
+                              "description": {
+                                "type": "string"
+                              },
+                              "iconUrl": {
+                                "type": "string"
+                              },
+                              "name": {
+                                "type": "string"
+                              },
+                              "id": {
+                                "type": "string"
+                              },
+                              "statusCategory": {
+                                "type": "object",
+                                "properties": {
+                                  "self": {
+                                    "type": "string"
+                                  },
+                                  "id": {
+                                    "type": "integer"
+                                  },
+                                  "key": {
+                                    "type": "string"
+                                  },
+                                  "colorName": {
+                                    "type": "string"
+                                  },
+                                  "name": {
+                                    "type": "string"
+                                  }
+                                }
+                              }
+                            }
+                          },
+                          "hasScreen": {
+                            "type": "boolean"
+                          },
+                          "isGlobal": {
+                            "type": "boolean"
+                          },
+                          "isInitial": {
+                            "type": "boolean"
+                          },
+                          "isAvailable": {
+                            "type": "boolean"
+                          },
+                          "isConditional": {
+                            "type": "boolean"
+                          },
+                          "isLooped": {
+                            "type": "boolean"
+                          }
+                        },
+                        "required": [
+                          "id",
+                          "name",
+                          "to",
+                          "hasScreen",
+                          "isGlobal",
+                          "isInitial",
+                          "isAvailable",
+                          "isConditional",
+                          "isLooped"
+                        ]
+                      }
+                    }
+                  }
+                }
+              }
+            },
+            "Add_a_new_row": {
+              "runAfter": {
+                "Apply_to_each_2": [
+                  "Succeeded"
+                ]
+              },
+              "type": "OpenApiConnection",
+              "inputs": {
+                "parameters": {
+                  "entityName": "crbc3_incidents",
+                  "item/crbc3_id": "@items('Apply_to_each')?['key']",
+                  "item/crbc3_type": "-",
+                  "item/crbc3_assignee": "@items('Apply_to_each')?['fields']?['assignee']?['displayName']",
+                  "item/crbc3_avaiabletransitions": "@variables('transitions')",
+                  "item/crbc3_breachtime_resolution": "@items('Apply_to_each')?['fields']?['customfield_10052']?['ongoingCycle']?['breachTime']?['iso8601']",
+                  "item/crbc3_breachtime_response": "@items('Apply_to_each')?['fields']?['customfield_10053']?['ongoingCycle']?['breachTime']?['iso8601']",
+                  "item/crbc3_datecreated": "@items('Apply_to_each')?['fields']?['created']",
+                  "item/crbc3_datecreated2": "@items('Apply_to_each')?['fields']?['created']",
+                  "item/crbc3_description": "@first(first(items('Apply_to_each')?['fields']?['description']?['content'])?['content'])?['text']",
+                  "item/crbc3_impact": "@items('Apply_to_each')?['fields']?['customfield_10004']?['value']",
+                  "item/crbc3_priority": "@items('Apply_to_each')?['fields']?['priority']?['name']",
+                  "item/crbc3_service_ari": "@if(equals(items('Apply_to_each')?['fields']?['customfield_10045'], null),'-',first(items('Apply_to_each')?['fields']?['customfield_10045'])?['id'])",
+                  "item/crbc3_status": "@items('Apply_to_each')?['fields']?['status']?['name']",
+                  "item/crbc3_summary": "@items('Apply_to_each')?['fields']?['summary']",
+                  "item/crbc3_urgency": "@items('Apply_to_each')?['fields']?['customfield_10044']?['value']"
+                },
+                "host": {
+                  "apiId": "/providers/Microsoft.PowerApps/apis/shared_commondataserviceforapps",
+                  "connectionName": "shared_commondataserviceforapps",
+                  "operationId": "CreateRecord"
+                },
+                "authentication": "@parameters('$authentication')"
+              }
+            },
+            "Set_variable": {
+              "runAfter": {
+                "Add_a_new_row": [
+                  "Succeeded"
+                ]
+              },
+              "type": "SetVariable",
+              "inputs": {
+                "name": "transitions",
+                "value": "@null"
+              }
+            }
+          },
+          "runAfter": {
+            "Initialize_variable": [
+              "Succeeded"
+            ]
+          },
+          "type": "Foreach"
+        },
+        "Initialize_variable": {
+          "runAfter": {
+            "Apply_to_each_1": [
+              "Succeeded"
+            ]
+          },
+          "type": "InitializeVariable",
+          "inputs": {
+            "variables": [
+              {
+                "name": "transitions",
+                "type": "array"
+              }
+            ]
+          }
+        }
+      },
+      "outputs": {}
+    },
+    "templateName": null
+  },
+  "schemaVersion": "1.0.0.0"
+}
