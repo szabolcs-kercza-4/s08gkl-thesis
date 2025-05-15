@@ -1,19 +1,20 @@
 # Üzleti alkalmazás fejlesztése Microsoft Power Platformon
 Készítette: Kercza Szabolcs
 
-Ez a github repository a pályaműhöz kapcsolódő Power Platform megoldást, a Jira Service Managemment autómatozációt illetve pályaműben használt kéréseket tartalmazó Postman kollekciót tartalmazza.
-## Előfeltételek
+Ez a github repository a pályaműhöz kapcsolódő Power Platform megoldást, a Jira Service Managemment automatozációt illetve pályaműben használt kéréseket tartalmazó Postman kollekciót tartalmazza.
+
+## Előfeltételek
 - Microsoft 365 Vállalati csomag
 - Microsoft Power Automate
 - Microsoft Power Apps
 - Jira Service Management és hozzá egy Service Desk projekt
 - Atlassian Compass
 
-## Jira Service Management autómatizációk importálása
+## Jira Service Management automatizációk importálása
 1. System Settings
 2. Automation -> Global automation
 3. ... -> Import rules
-4. Kiválasztott autómatizáció JSON fájl feltöltése
+4. Kiválasztott automatizáció JSON fájl feltöltése
 ## Postman asztali alkalmazás
 1. Fájl -> Import
 ## Power Platform
